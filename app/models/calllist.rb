@@ -1,0 +1,2 @@
+class Calllist < ApplicationRecord
+end

@@ -1,0 +1,122 @@
+<%= form_with(model: calllist, local: true) do |form| %>
+  <% if calllist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(calllist.errors.count, "error") %> prohibited this calllist from being saved:</h2>
+
+      <ul>
+      <% calllist.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :day %>
+    <%= form.text_field :day, id: :calllist_day %>
+  </div>
+
+  <div class="field">
+    <%= form.label :custname %>
+    <%= form.text_field :custname, id: :calllist_custname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :custcode %>
+    <%= form.text_field :custcode, id: :calllist_custcode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :shipto %>
+    <%= form.text_field :shipto, id: :calllist_shipto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rep %>
+    <%= form.text_field :rep, id: :calllist_rep %>
+  </div>
+
+  <div class="field">
+    <%= form.label :csr %>
+    <%= form.text_field :csr, id: :calllist_csr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dept %>
+    <%= form.text_field :dept, id: :calllist_dept %>
+  </div>
+
+  <div class="field">
+    <%= form.label :item %>
+    <%= form.text_field :item, id: :calllist_item %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, id: :calllist_phone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :manager %>
+    <%= form.text_field :manager, id: :calllist_manager %>
+  </div>
+
+  <div class="field">
+    <%= form.label :totalitems %>
+    <%= form.text_field :totalitems, id: :calllist_totalitems %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dontcall %>
+    <%= form.text_field :dontcall, id: :calllist_dontcall %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reason %>
+    <%= form.text_field :reason, id: :calllist_reason %>
+  </div>
+
+  <div class="field">
+    <%= form.label :startdc %>
+    <%= form.text_field :startdc, id: :calllist_startdc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :enddc %>
+    <%= form.text_field :enddc, id: :calllist_enddc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :special %>
+    <%= form.text_field :special, id: :calllist_special %>
+  </div>
+
+  <div class="field">
+    <%= form.label :starts %>
+    <%= form.text_field :starts, id: :calllist_starts %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ends %>
+    <%= form.text_field :ends, id: :calllist_ends %>
+  </div>
+
+  <div class="field">
+    <%= form.label :altrep %>
+    <%= form.text_field :altrep, id: :calllist_altrep %>
+  </div>
+
+  <div class="field">
+    <%= form.label :startar %>
+    <%= form.text_field :startar, id: :calllist_startar %>
+  </div>
+
+  <div class="field">
+    <%= form.label :endar %>
+    <%= form.date_select :endar, id: :calllist_endar %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

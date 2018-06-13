@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: 
+  custname: 
+  custcode: 
+  shipto: 
+  rep: 
+  csr: 
+  dept: 
+  item: 
+  phone: 
+  manager: 
+  totalitems: 
+  dontcall: 
+  reason: 
+  startdc: 
+  enddc: 
+  special: 
+  starts: 
+  ends: 
+  altrep: 
+  startar: 
+  endar: 2018-06-13
+
+two:
+  day: 
+  custname: 
+  custcode: 
+  shipto: 
+  rep: 
+  csr: 
+  dept: 
+  item: 
+  phone: 
+  manager: 
+  totalitems: 
+  dontcall: 
+  reason: 
+  startdc: 
+  enddc: 
+  special: 
+  starts: 
+  ends: 
+  altrep: 
+  startar: 
+  endar: 2018-06-13
