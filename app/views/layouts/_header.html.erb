@@ -3,8 +3,11 @@
 <nav class="">
     <ul>
         <span id="navbar">
-            <span><%= link_to 'View Authorization Lists', '/authorlists' %></span>
-            <span><%= link_to 'View Call Lists', '/calllists' %></span>
+            <span><%= link_to 'Authorized', '/authorlists' %></span>
+            <span><%= link_to 'Call List', '/calllists' %></span>
+            <span><%= link_to 'Hide Part', '/dontcalls' %></span>
+            <span><%= link_to 'Specials', '/onspecials' %></span>
+            <span><%= link_to 'Swap CSR', '/altcsrs' %></span>
             <span><a href="/">Home</a></span>
         </span>
         <%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
