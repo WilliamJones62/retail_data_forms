@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180613204138) do
+ActiveRecord::Schema.define(version: 20180615130227) do
+
+  create_table "altcsrs", force: :cascade do |t|
+    t.string "usualcsr"
+    t.string "altcsr"
+    t.date "start"
+    t.date "end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "authorlists", force: :cascade do |t|
     t.string "partcode"
@@ -45,6 +54,25 @@ ActiveRecord::Schema.define(version: 20180613204138) do
     t.string "altrep"
     t.date "startar"
     t.date "endar"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dontcalls", force: :cascade do |t|
+    t.string "customer"
+    t.string "shipto"
+    t.string "part"
+    t.date "start"
+    t.date "end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "onspecials", force: :cascade do |t|
+    t.string "customer"
+    t.string "part"
+    t.date "start"
+    t.date "end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

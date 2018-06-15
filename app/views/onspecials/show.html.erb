@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @onspecial.customer %>
+</p>
+
+<p>
+  <strong>Part:</strong>
+  <%= @onspecial.part %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @onspecial.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @onspecial.end %>
+</p>
+
+<%= link_to 'Edit', edit_onspecial_path(@onspecial) %> |
+<%= link_to 'Back', onspecials_path %>

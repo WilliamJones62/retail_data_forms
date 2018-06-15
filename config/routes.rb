@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :onspecials
+  resources :dontcalls
+  resources :altcsrs
   get 'home/show'
 
   resources :calllists

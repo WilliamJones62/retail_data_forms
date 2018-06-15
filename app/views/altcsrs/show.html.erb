@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usualcsr:</strong>
+  <%= @altcsr.usualcsr %>
+</p>
+
+<p>
+  <strong>Altcsr:</strong>
+  <%= @altcsr.altcsr %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @altcsr.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @altcsr.end %>
+</p>
+
+<%= link_to 'Edit', edit_altcsr_path(@altcsr) %> |
+<%= link_to 'Back', altcsrs_path %>

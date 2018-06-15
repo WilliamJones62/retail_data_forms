@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Dontcalls</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Shipto</th>
+      <th>Part</th>
+      <th>Start</th>
+      <th>End</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dontcalls.each do |dontcall| %>
+      <tr>
+        <td><%= dontcall.customer %></td>
+        <td><%= dontcall.shipto %></td>
+        <td><%= dontcall.part %></td>
+        <td><%= dontcall.start %></td>
+        <td><%= dontcall.end %></td>
+        <td><%= link_to 'Show', dontcall %></td>
+        <td><%= link_to 'Edit', edit_dontcall_path(dontcall) %></td>
+        <td><%= link_to 'Destroy', dontcall, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dontcall', new_dontcall_path %>

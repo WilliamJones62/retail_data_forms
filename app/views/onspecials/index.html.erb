@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Onspecials</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Part</th>
+      <th>Start</th>
+      <th>End</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @onspecials.each do |onspecial| %>
+      <tr>
+        <td><%= onspecial.customer %></td>
+        <td><%= onspecial.part %></td>
+        <td><%= onspecial.start %></td>
+        <td><%= onspecial.end %></td>
+        <td><%= link_to 'Show', onspecial %></td>
+        <td><%= link_to 'Edit', edit_onspecial_path(onspecial) %></td>
+        <td><%= link_to 'Destroy', onspecial, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Onspecial', new_onspecial_path %>

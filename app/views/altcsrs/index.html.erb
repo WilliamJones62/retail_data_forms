@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Altcsrs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Usualcsr</th>
+      <th>Altcsr</th>
+      <th>Start</th>
+      <th>End</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @altcsrs.each do |altcsr| %>
+      <tr>
+        <td><%= altcsr.usualcsr %></td>
+        <td><%= altcsr.altcsr %></td>
+        <td><%= altcsr.start %></td>
+        <td><%= altcsr.end %></td>
+        <td><%= link_to 'Show', altcsr %></td>
+        <td><%= link_to 'Edit', edit_altcsr_path(altcsr) %></td>
+        <td><%= link_to 'Destroy', altcsr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Altcsr', new_altcsr_path %>

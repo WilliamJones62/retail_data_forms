@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @dontcall.customer %>
+</p>
+
+<p>
+  <strong>Shipto:</strong>
+  <%= @dontcall.shipto %>
+</p>
+
+<p>
+  <strong>Part:</strong>
+  <%= @dontcall.part %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @dontcall.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @dontcall.end %>
+</p>
+
+<%= link_to 'Edit', edit_dontcall_path(@dontcall) %> |
+<%= link_to 'Back', dontcalls_path %>

@@ -1,0 +1,2 @@
+class Altcsr < ApplicationRecord
+end
