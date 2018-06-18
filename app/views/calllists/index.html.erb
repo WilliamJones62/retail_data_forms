@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Calllists</h1>
+<h1>Call List</h1>
 
 <table class="mytable" class="display" cellspacing="0" >
   <thead>
@@ -8,22 +8,8 @@
       <th>Day</th>
       <th>Custcode</th>
       <th>Shipto</th>
-      <th>Csr</th>
       <th>Dept</th>
-      <th>Item</th>
-      <th>Phone</th>
-      <th>Manager</th>
-      <th>Totalitems</th>
-      <th>Dontcall</th>
-      <th>Reason</th>
-      <th>Startdc</th>
-      <th>Enddc</th>
-      <th>Special</th>
-      <th>Starts</th>
-      <th>Ends</th>
-      <th>Altrep</th>
-      <th>Startar</th>
-      <th>Endar</th>
+      <th>Csr</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -32,29 +18,13 @@
     <% @calllists.each do |calllist| %>
       <tr>
         <td><%= calllist.day %></td>
-        <td><%= calllist.custname %></td>
         <td><%= calllist.custcode %></td>
         <td><%= calllist.shipto %></td>
-        <td><%= calllist.rep %></td>
-        <td><%= calllist.csr %></td>
         <td><%= calllist.dept %></td>
-        <td><%= calllist.item %></td>
-        <td><%= calllist.phone %></td>
-        <td><%= calllist.manager %></td>
-        <td><%= calllist.totalitems %></td>
-        <td><%= calllist.dontcall %></td>
-        <td><%= calllist.reason %></td>
-        <td><%= calllist.startdc %></td>
-        <td><%= calllist.enddc %></td>
-        <td><%= calllist.special %></td>
-        <td><%= calllist.starts %></td>
-        <td><%= calllist.ends %></td>
-        <td><%= calllist.altrep %></td>
-        <td><%= calllist.startar %></td>
-        <td><%= calllist.endar %></td>
+        <td><%= calllist.csr %></td>
         <td><%= link_to 'Show', calllist %></td>
         <td><%= link_to 'Edit', edit_calllist_path(calllist) %></td>
-        <td><%= link_to 'Destroy', calllist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', calllist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -62,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Calllist', new_calllist_path %>
+<%= link_to 'New Call List', new_calllist_path %>

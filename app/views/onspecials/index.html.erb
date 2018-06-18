@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Onspecials</h1>
+<h1>On Special</h1>
 
 <table class="mytable" class="display" cellspacing="0" >
   <thead>
@@ -22,7 +22,7 @@
         <td><%= onspecial.end %></td>
         <td><%= link_to 'Show', onspecial %></td>
         <td><%= link_to 'Edit', edit_onspecial_path(onspecial) %></td>
-        <td><%= link_to 'Destroy', onspecial, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', onspecial, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Onspecial', new_onspecial_path %>
+<%= link_to 'New On Special', new_onspecial_path %>

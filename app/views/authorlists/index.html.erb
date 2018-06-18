@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Authorlists</h1>
+<h1>Authorized</h1>
 
 <table class="mytable" class="display" cellspacing="0" >
   <thead>
@@ -26,7 +26,7 @@
         <td><%= authorlist.priority %></td>
         <td><%= link_to 'Show', authorlist %></td>
         <td><%= link_to 'Edit', edit_authorlist_path(authorlist) %></td>
-        <td><%= link_to 'Destroy', authorlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', authorlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Authorlist', new_authorlist_path %>
+<%= link_to 'New Authorized', new_authorlist_path %>

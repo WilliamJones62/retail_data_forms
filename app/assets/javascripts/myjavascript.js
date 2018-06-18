@@ -11,5 +11,9 @@
         'print'
       ]
     });
+    
+    $("#btnPrint").printPreview({
+      obj2print:'#main'
+    });
 
   });

@@ -6,17 +6,17 @@
 </p>
 
 <p>
-  <strong>Custname:</strong>
+  <strong>Customer Name:</strong>
   <%= @calllist.custname %>
 </p>
 
 <p>
-  <strong>Custcode:</strong>
+  <strong>Customer Code:</strong>
   <%= @calllist.custcode %>
 </p>
 
 <p>
-  <strong>Shipto:</strong>
+  <strong>Ship To:</strong>
   <%= @calllist.shipto %>
 </p>
 
@@ -26,7 +26,7 @@
 </p>
 
 <p>
-  <strong>Csr:</strong>
+  <strong>CSR:</strong>
   <%= @calllist.csr %>
 </p>
 
@@ -55,55 +55,5 @@
   <%= @calllist.totalitems %>
 </p>
 
-<p>
-  <strong>Dontcall:</strong>
-  <%= @calllist.dontcall %>
-</p>
-
-<p>
-  <strong>Reason:</strong>
-  <%= @calllist.reason %>
-</p>
-
-<p>
-  <strong>Startdc:</strong>
-  <%= @calllist.startdc %>
-</p>
-
-<p>
-  <strong>Enddc:</strong>
-  <%= @calllist.enddc %>
-</p>
-
-<p>
-  <strong>Special:</strong>
-  <%= @calllist.special %>
-</p>
-
-<p>
-  <strong>Starts:</strong>
-  <%= @calllist.starts %>
-</p>
-
-<p>
-  <strong>Ends:</strong>
-  <%= @calllist.ends %>
-</p>
-
-<p>
-  <strong>Altrep:</strong>
-  <%= @calllist.altrep %>
-</p>
-
-<p>
-  <strong>Startar:</strong>
-  <%= @calllist.startar %>
-</p>
-
-<p>
-  <strong>Endar:</strong>
-  <%= @calllist.endar %>
-</p>
-
-<%= link_to 'Edit', edit_calllist_path(@calllist) %> |
-<%= link_to 'Back', calllists_path %>
+<%= link_to 'Edit', edit_calllist_path(@calllist) %>
+<%= link_to 'List', calllists_path %>
