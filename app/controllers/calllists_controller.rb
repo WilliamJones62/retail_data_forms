@@ -14,11 +14,13 @@ class CalllistsController < ApplicationController
 
   # GET /calllists/new
   def new
+    @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Holiday']
     @calllist = Calllist.new
   end
 
   # GET /calllists/1/edit
   def edit
+    @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Holiday']
   end
 
   # POST /calllists

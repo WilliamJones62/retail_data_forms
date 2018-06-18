@@ -1,58 +1,41 @@
 <p id="notice"><%= notice %></p>
 
+<fieldset>
+  <legend><strong>CSR Detail</strong></legend>
+  <p>
+    <strong>Day:</strong>
+    <%= @calllist.day %>&emsp;&emsp;
+    <strong>CSR:</strong>
+    <%= @calllist.csr %>&emsp;&emsp;
+    <strong>Rep:</strong>
+    <%= @calllist.rep %>
+  </p>
+</fieldset>
 <p>
-  <strong>Day:</strong>
-  <%= @calllist.day %>
 </p>
 
+<fieldset>
+  <legend><strong>Customer Detail</strong></legend>
+  <p>
+    <strong>Customer Code:</strong>
+    <%= @calllist.custcode %>&emsp;&emsp;
+    <strong>Ship To:</strong>
+    <%= @calllist.shipto %>&emsp;&emsp;
+    <strong>Dept:</strong>
+    <%= @calllist.dept %>&emsp;&emsp;
+    <strong>Item:</strong>
+    <%= @calllist.item %>
+  </p>
+  <p>
+    <strong>Phone:</strong>
+    <%= @calllist.phone %>&emsp;&emsp;
+    <strong>Manager:</strong>
+    <%= @calllist.manager %>&emsp;&emsp;
+    <strong>Totalitems:</strong>
+    <%= @calllist.totalitems %>
+  </p>
+</fieldset>
 <p>
-  <strong>Customer Name:</strong>
-  <%= @calllist.custname %>
-</p>
-
-<p>
-  <strong>Customer Code:</strong>
-  <%= @calllist.custcode %>
-</p>
-
-<p>
-  <strong>Ship To:</strong>
-  <%= @calllist.shipto %>
-</p>
-
-<p>
-  <strong>Rep:</strong>
-  <%= @calllist.rep %>
-</p>
-
-<p>
-  <strong>CSR:</strong>
-  <%= @calllist.csr %>
-</p>
-
-<p>
-  <strong>Dept:</strong>
-  <%= @calllist.dept %>
-</p>
-
-<p>
-  <strong>Item:</strong>
-  <%= @calllist.item %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @calllist.phone %>
-</p>
-
-<p>
-  <strong>Manager:</strong>
-  <%= @calllist.manager %>
-</p>
-
-<p>
-  <strong>Totalitems:</strong>
-  <%= @calllist.totalitems %>
 </p>
 
 <%= link_to 'Edit', edit_calllist_path(@calllist) %>
