@@ -63,6 +63,11 @@ class CalllistsController < ApplicationController
     end
   end
 
+  def import
+    Calllist.import(params[:file])
+    redirect_to root_url, notice: "Call lists imported."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_calllist

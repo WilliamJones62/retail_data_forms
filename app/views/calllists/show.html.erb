@@ -40,3 +40,9 @@
 
 <%= link_to 'Edit', edit_calllist_path(@calllist) %>
 <%= link_to 'List', calllists_path %>
+
+<h2>Import Call Lists</h2>
+  <%= form_tag import_calllists_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
