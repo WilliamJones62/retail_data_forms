@@ -1,5 +1,6 @@
 class AltcsrsController < ApplicationController
   before_action :set_altcsr, only: [:show, :edit, :update, :destroy]
+  before_action :build_csr_list, only: [:new, :edit]
 
   # GET /altcsrs
   # GET /altcsrs.json
@@ -29,10 +30,8 @@ class AltcsrsController < ApplicationController
     respond_to do |format|
       if @altcsr.save
         format.html { redirect_to @altcsr, notice: 'Altcsr was successfully created.' }
-        format.json { render :show, status: :created, location: @altcsr }
       else
         format.html { render :new }
-        format.json { render json: @altcsr.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,10 +42,8 @@ class AltcsrsController < ApplicationController
     respond_to do |format|
       if @altcsr.update(altcsr_params)
         format.html { redirect_to @altcsr, notice: 'Altcsr was successfully updated.' }
-        format.json { render :show, status: :ok, location: @altcsr }
       else
         format.html { render :edit }
-        format.json { render json: @altcsr.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,7 +54,6 @@ class AltcsrsController < ApplicationController
     @altcsr.destroy
     respond_to do |format|
       format.html { redirect_to altcsrs_url, notice: 'Altcsr was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -65,6 +61,19 @@ class AltcsrsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_altcsr
       @altcsr = Altcsr.find(params[:id])
+    end
+
+    # Build a list of current CSRs
+    def build_csr_list
+      @csr = []
+      tempcsr = []
+      calllist = Calllist.all
+      calllist.each do |c|
+        if !tempcsr.include?(c.csr)
+          tempcsr.push(c.csr)
+        end
+      end
+      @csr = tempcsr.sort
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
