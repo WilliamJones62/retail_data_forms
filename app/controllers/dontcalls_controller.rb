@@ -1,5 +1,6 @@
 class DontcallsController < ApplicationController
   before_action :set_dontcall, only: [:show, :edit, :update, :destroy]
+  before_action :build_lists, only: [:new, :edit]
 
   # GET /dontcalls
   # GET /dontcalls.json
@@ -65,6 +66,34 @@ class DontcallsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_dontcall
       @dontcall = Dontcall.find(params[:id])
+    end
+
+    # Build lists of current customers, shiptos and parts
+    def build_lists
+      @customer = []
+      @shipto = []
+      @part = []
+      tempcust = []
+      tempship = []
+      temppart = []
+      authorlist = Authorlist.all
+      authorlist.each do |a|
+        if !temppart.include?(a.partcode)
+          temppart.push(a.partcode)
+        end
+      end
+      calllist = Calllist.all
+      calllist.each do |c|
+        if !tempcust.include?(c.custcode)
+          tempcust.push(c.custcode)
+        end
+        if !tempship.include?(c.shipto)
+          tempship.push(c.shipto)
+        end
+      end
+      @customer = tempcust.sort
+      @shipto = tempship.sort
+      @part = temppart.sort
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,35 +11,30 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :partcode %>
-    <%= form.text_field :partcode, id: :authorlist_partcode %>
-  </div>
-
-  <div class="field">
-    <%= form.label :dept %>
-    <%= form.text_field :dept, id: :authorlist_dept %>
-  </div>
-
-  <div class="field">
-    <%= form.label :custcode %>
-    <%= form.text_field :custcode, id: :authorlist_custcode %>
-  </div>
-
-  <div class="field">
-    <%= form.label :turns %>
-    <%= form.text_field :turns, id: :authorlist_turns %>
-  </div>
-
-  <div class="field">
-    <%= form.label :seq %>
-    <%= form.text_field :seq, id: :authorlist_seq %>
-  </div>
-
-  <div class="field">
-    <%= form.label :priority %>
-    <%= form.number_field :priority, id: :authorlist_priority %>
-  </div>
+  <p>
+    <table class="field">
+      <thead>
+        <tr>
+          <th> <%= form.label :custcode, "Customer code" %> </th>
+          <th> <%= form.label :dept, "Dept." %> </th>
+          <th> <%= form.label :partcode, "Part code" %> </th>
+          <th> <%= form.label :turns, "Turns" %> </th>
+          <th> <%= form.label :seq, "Sequence" %> </th>
+          <th> <%= form.label :priority, "Priority" %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.text_field :custcode, id: :authorlist_custcode %> </td>
+          <td> <%= form.text_field :dept, id: :authorlist_dept %> </td>
+          <td> <%= form.text_field :partcode, id: :authorlist_partcode %> </td>
+          <td> <%= form.number_field :turns, id: :authorlist_turns %> </td>
+          <td> <%= form.number_field :seq, id: :authorlist_seq %> </td>
+          <td> <%= form.number_field :priority, id: :authorlist_priority %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </p>
 
   <div class="actions">
     <%= form.submit %>

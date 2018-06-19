@@ -5,9 +5,9 @@
 <table class="mytable" class="display" cellspacing="0" >
   <thead>
     <tr>
-      <th>Partcode</th>
-      <th>Dept</th>
       <th>Custcode</th>
+      <th>Dept</th>
+      <th>Partcode</th>
       <th>Turns</th>
       <th>Seq</th>
       <th>Priority</th>
@@ -18,9 +18,9 @@
   <tbody>
     <% @authorlists.each do |authorlist| %>
       <tr>
-        <td><%= authorlist.partcode %></td>
-        <td><%= authorlist.dept %></td>
         <td><%= authorlist.custcode %></td>
+        <td><%= authorlist.dept %></td>
+        <td><%= authorlist.partcode %></td>
         <td><%= authorlist.turns %></td>
         <td><%= authorlist.seq %></td>
         <td><%= authorlist.priority %></td>

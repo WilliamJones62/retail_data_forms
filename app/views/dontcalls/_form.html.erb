@@ -11,30 +11,28 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :customer %>
-    <%= form.text_field :customer, id: :dontcall_customer %>
-  </div>
-
-  <div class="field">
-    <%= form.label :shipto %>
-    <%= form.text_field :shipto, id: :dontcall_shipto %>
-  </div>
-
-  <div class="field">
-    <%= form.label :part %>
-    <%= form.text_field :part, id: :dontcall_part %>
-  </div>
-
-  <div class="field">
-    <%= form.label :start %>
-    <%= form.date_select :start, id: :dontcall_start %>
-  </div>
-
-  <div class="field">
-    <%= form.label :end %>
-    <%= form.date_select :end, id: :dontcall_end %>
-  </div>
+  <p>
+    <table class="field">
+      <thead>
+        <tr>
+          <th> <%= form.label :customer, "Customer code" %> </th>
+          <th> <%= form.label :shipto, "Ship to" %> </th>
+          <th> <%= form.label :part, "Part code" %> </th>
+          <th> <%= form.label :start %> </th>
+          <th> <%= form.label :end %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.select :customer, @customer, {}, {:value => params[:customer]} %> </td>
+          <td> <%= form.select :shipto, @shipto, {}, {:value => params[:shipto]} %> </td>
+          <td> <%= form.select :part, @part, {}, {:value => params[:part]} %> </td>
+          <td> <%= form.date_select :start, id: :dontcall_start %> </td>
+          <td> <%= form.date_select :end, id: :dontcall_end %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </p>
 
   <div class="actions">
     <%= form.submit %>
