@@ -1,5 +1,6 @@
 class OnspecialsController < ApplicationController
   before_action :set_onspecial, only: [:show, :edit, :update, :destroy]
+  before_action :build_lists, only: [:new, :edit]
 
   # GET /onspecials
   # GET /onspecials.json
@@ -29,10 +30,8 @@ class OnspecialsController < ApplicationController
     respond_to do |format|
       if @onspecial.save
         format.html { redirect_to @onspecial, notice: 'Onspecial was successfully created.' }
-        format.json { render :show, status: :created, location: @onspecial }
       else
         format.html { render :new }
-        format.json { render json: @onspecial.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,10 +42,8 @@ class OnspecialsController < ApplicationController
     respond_to do |format|
       if @onspecial.update(onspecial_params)
         format.html { redirect_to @onspecial, notice: 'Onspecial was successfully updated.' }
-        format.json { render :show, status: :ok, location: @onspecial }
       else
         format.html { render :edit }
-        format.json { render json: @onspecial.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,7 +54,6 @@ class OnspecialsController < ApplicationController
     @onspecial.destroy
     respond_to do |format|
       format.html { redirect_to onspecials_url, notice: 'Onspecial was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -65,6 +61,26 @@ class OnspecialsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_onspecial
       @onspecial = Onspecial.find(params[:id])
+    end
+
+    # Build lists of current customers, shiptos and parts
+    def build_lists
+      @customer = []
+      @part = []
+      tempcust = []
+      temppart = []
+      authorlist = Authorlist.all
+      authorlist.each do |a|
+        if !temppart.include?(a.partcode)
+          temppart.push(a.partcode)
+        end
+        if !tempcust.include?(a.custcode)
+          tempcust.push(a.custcode)
+        end
+      end
+
+      @customer = tempcust.sort
+      @part = temppart.sort
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
