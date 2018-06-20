@@ -12,7 +12,7 @@
   <% end %>
 
   <p>
-    <table class="field">
+    <table>
       <thead>
         <tr>
           <th> <%= form.label :customer, "Customer code" %> </th>
@@ -24,8 +24,8 @@
       </thead>
       <tbody>
         <tr>
-          <td> <%= form.select :customer, @customer, {}, {:value => params[:customer]} %> </td>
-          <td> <%= form.select :shipto, @shipto, {}, {:value => params[:shipto]} %> </td>
+          <td> <%= form.select :customer, @customer, {}, {:value => params[:customer], :id => "dontcall_customer", :onChange=> ('shipToList()')} %> </td>
+          <td> <%= form.select :shipto, @shipto, {}, {:value => params[:shipto], :id => "dontcall_shipto"} %> </td>
           <td> <%= form.select :part, @part, {}, {:value => params[:part]} %> </td>
           <td> <%= form.date_select :start, id: :dontcall_start %> </td>
           <td> <%= form.date_select :end, id: :dontcall_end %> </td>
@@ -38,3 +38,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+<p id= "customers" hidden> <%= @allcust %> </p>
+<p id= "shiptos" hidden> <%= @allshipto %> </p>

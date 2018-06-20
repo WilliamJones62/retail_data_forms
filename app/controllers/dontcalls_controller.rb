@@ -1,6 +1,5 @@
 class DontcallsController < ApplicationController
   before_action :set_dontcall, only: [:show, :edit, :update, :destroy]
-  before_action :build_lists, only: [:new, :edit]
 
   # GET /dontcalls
   # GET /dontcalls.json
@@ -15,11 +14,15 @@ class DontcallsController < ApplicationController
 
   # GET /dontcalls/new
   def new
+    @new_dontcall = true
+    build_lists
     @dontcall = Dontcall.new
   end
 
   # GET /dontcalls/1/edit
   def edit
+    @new_dontcall = false
+    build_lists
   end
 
   # POST /dontcalls
@@ -30,10 +33,8 @@ class DontcallsController < ApplicationController
     respond_to do |format|
       if @dontcall.save
         format.html { redirect_to @dontcall, notice: 'Dontcall was successfully created.' }
-        format.json { render :show, status: :created, location: @dontcall }
       else
         format.html { render :new }
-        format.json { render json: @dontcall.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,10 +45,8 @@ class DontcallsController < ApplicationController
     respond_to do |format|
       if @dontcall.update(dontcall_params)
         format.html { redirect_to @dontcall, notice: 'Dontcall was successfully updated.' }
-        format.json { render :show, status: :ok, location: @dontcall }
       else
         format.html { render :edit }
-        format.json { render json: @dontcall.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,7 +57,6 @@ class DontcallsController < ApplicationController
     @dontcall.destroy
     respond_to do |format|
       format.html { redirect_to dontcalls_url, notice: 'Dontcall was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -71,10 +69,12 @@ class DontcallsController < ApplicationController
     # Build lists of current customers, shiptos and parts
     def build_lists
       @customer = []
+      @allcust = []
+      @allshipto = []
       @shipto = []
       @part = []
       tempcust = []
-      tempship = []
+      tempshipto = []
       temppart = []
       authorlist = Authorlist.all
       authorlist.each do |a|
@@ -82,17 +82,27 @@ class DontcallsController < ApplicationController
           temppart.push(a.partcode)
         end
       end
+
+      if @new_dontcall
+        firstcalllist = Calllist.first
+        cust = firstcalllist.custcode
+      else
+        cust = @dontcall.customer
+      end
+
       calllist = Calllist.all
       calllist.each do |c|
         if !tempcust.include?(c.custcode)
           tempcust.push(c.custcode)
         end
-        if !tempship.include?(c.shipto)
-          tempship.push(c.shipto)
+        if c.custcode == cust && !tempshipto.include?(c.shipto)
+          tempshipto.push(c.shipto)
         end
+        @allshipto.push(c.shipto)
+        @allcust.push(c.custcode)
       end
       @customer = tempcust.sort
-      @shipto = tempship.sort
+      @shipto = tempshipto.sort
       @part = temppart.sort
     end
 
