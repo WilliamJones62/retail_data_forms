@@ -10,6 +10,9 @@ end
 gem 'rails', '~> 5.1.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+# Use sqlserver as the database for Active Record in production
+gem "tiny_tds", '<=1.3.0'
+gem 'activerecord-sqlserver-adapter'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # JQuery
