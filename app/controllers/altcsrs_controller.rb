@@ -69,7 +69,7 @@ class AltcsrsController < ApplicationController
       tempcsr = []
       calllist = Calllist.all
       calllist.each do |c|
-        if !tempcsr.include?(c.csr)
+        if c.csr && !tempcsr.include?(c.csr)
           tempcsr.push(c.csr)
         end
       end
@@ -78,6 +78,6 @@ class AltcsrsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def altcsr_params
-      params.require(:altcsr).permit(:usualcsr, :altcsr, :start, :end)
+      params.require(:altcsr).permit(:usualcsr, :altcsr, :altcsrs_start, :altcsrs_end)
     end
 end

@@ -17,14 +17,14 @@
       <table>
         <thead>
           <tr>
-            <th> <%= form.label :day, "Day" %> </th>
+            <th> <%= form.label :calllists_day, "Day" %> </th>
             <th> <%= form.label :csr, "CSR" %> </th>
             <th> <%= form.label :rep, "Rep" %> </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td> <%= form.select :day, @day, {}, {:value => params[:day]} %> </td>
+            <td> <%= form.select :calllists_day, @day, {}, {:value => params[:calllists_day]} %> </td>
             <td> <%= form.text_field :csr, id: :calllist_csr %> </td>
             <td> <%= form.text_field :rep, id: :calllist_rep %> </td>
           </tr>

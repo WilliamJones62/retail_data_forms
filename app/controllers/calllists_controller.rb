@@ -31,10 +31,8 @@ class CalllistsController < ApplicationController
     respond_to do |format|
       if @calllist.save
         format.html { redirect_to @calllist, notice: 'Calllist was successfully created.' }
-        format.json { render :show, status: :created, location: @calllist }
       else
         format.html { render :new }
-        format.json { render json: @calllist.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -45,10 +43,8 @@ class CalllistsController < ApplicationController
     respond_to do |format|
       if @calllist.update(calllist_params)
         format.html { redirect_to @calllist, notice: 'Calllist was successfully updated.' }
-        format.json { render :show, status: :ok, location: @calllist }
       else
         format.html { render :edit }
-        format.json { render json: @calllist.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,7 +55,6 @@ class CalllistsController < ApplicationController
     @calllist.destroy
     respond_to do |format|
       format.html { redirect_to calllists_url, notice: 'Calllist was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -76,6 +71,6 @@ class CalllistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def calllist_params
-      params.require(:calllist).permit(:day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :dontcall, :reason, :startdc, :enddc, :special, :starts, :ends, :altrep, :startar, :endar)
+      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems)
     end
 end

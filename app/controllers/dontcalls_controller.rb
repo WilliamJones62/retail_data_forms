@@ -108,6 +108,6 @@ class DontcallsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dontcall_params
-      params.require(:dontcall).permit(:customer, :shipto, :part, :start, :end)
+      params.require(:dontcall).permit(:customer, :shipto, :part, :dontcalls_start, :dontcalls_end)
     end
 end

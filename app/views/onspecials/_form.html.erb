@@ -17,16 +17,16 @@
         <tr>
           <th> <%= form.label :customer, "Customer code" %> </th>
           <th> <%= form.label :part, "Part code" %> </th>
-          <th> <%= form.label :start %> </th>
-          <th> <%= form.label :end %> </th>
+          <th> <%= form.label :onspecials_start %> </th>
+          <th> <%= form.label :onspecials_end %> </th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td> <%= form.select :customer, @customer, {}, {:value => params[:customer]} %> </td>
           <td> <%= form.select :part, @part, {}, {:value => params[:part]} %> </td>
-          <td> <%= form.date_select :start, id: :onspecial_start %> </td>
-          <td> <%= form.date_select :end, id: :onspecial_end %> </td>
+          <td> <%= form.date_select :onspecials_start, id: :onspecial_onspecials_start %> </td>
+          <td> <%= form.date_select :onspecials_end, id: :onspecial_onspecials_end %> </td>
         </tr>
       </tbody>
     </table>

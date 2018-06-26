@@ -85,6 +85,6 @@ class OnspecialsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def onspecial_params
-      params.require(:onspecial).permit(:customer, :part, :start, :end)
+      params.require(:onspecial).permit(:customer, :part, :onspecials_start, :onspecials_end)
     end
 end

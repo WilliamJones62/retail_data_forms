@@ -18,8 +18,8 @@
           <th> <%= form.label :customer, "Customer code" %> </th>
           <th> <%= form.label :shipto, "Ship to" %> </th>
           <th> <%= form.label :part, "Part code" %> </th>
-          <th> <%= form.label :start %> </th>
-          <th> <%= form.label :end %> </th>
+          <th> <%= form.label :dontcalls_start %> </th>
+          <th> <%= form.label :dontcalls_end %> </th>
         </tr>
       </thead>
       <tbody>
@@ -27,8 +27,8 @@
           <td> <%= form.select :customer, @customer, {}, {:value => params[:customer], :id => "dontcall_customer", :onChange=> ('shipToList()')} %> </td>
           <td> <%= form.select :shipto, @shipto, {}, {:value => params[:shipto], :id => "dontcall_shipto"} %> </td>
           <td> <%= form.select :part, @part, {}, {:value => params[:part]} %> </td>
-          <td> <%= form.date_select :start, id: :dontcall_start %> </td>
-          <td> <%= form.date_select :end, id: :dontcall_end %> </td>
+          <td> <%= form.date_select :dontcalls_start, id: :dontcall_dontcalls_start %> </td>
+          <td> <%= form.date_select :dontcalls_end, id: :dontcall_dontcalls_end %> </td>
         </tr>
       </tbody>
     </table>
