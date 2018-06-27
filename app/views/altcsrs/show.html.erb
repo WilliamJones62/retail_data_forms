@@ -14,12 +14,12 @@
 
 <p>
   <strong>Start:</strong>
-  <%= @altcsr.altcsrs_start %>
+  <%= display_date(@altcsr.altcsrs_start) %>
 </p>
 
 <p>
   <strong>End:</strong>
-  <%= @altcsr.altcsrs_end %>
+  <%= display_date(@altcsr.altcsrs_end) %>
 </p>
 
 <%= link_to 'Edit', edit_altcsr_path(@altcsr) %>

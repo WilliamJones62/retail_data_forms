@@ -19,12 +19,12 @@
 
 <p>
   <strong>Start:</strong>
-  <%= @dontcall.dontcalls_start %>
+  <%= display_date(@dontcall.dontcalls_start) %>
 </p>
 
 <p>
   <strong>End:</strong>
-  <%= @dontcall.dontcalls_end %>
+  <%= display_date(@dontcall.dontcalls_end) %>
 </p>
 
 <%= link_to 'Edit', edit_dontcall_path(@dontcall) %>

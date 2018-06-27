@@ -22,8 +22,8 @@
         <td><%= dontcall.customer %></td>
         <td><%= dontcall.shipto %></td>
         <td><%= dontcall.part %></td>
-        <td><%= dontcall.dontcalls_start %></td>
-        <td><%= dontcall.dontcalls_end %></td>
+        <td><%= display_date(dontcall.dontcalls_start) %></td>
+        <td><%= display_date(dontcall.dontcalls_end) %></td>
         <td><%= link_to 'Show', dontcall %></td>
         <td><%= link_to 'Edit', edit_dontcall_path(dontcall) %></td>
         <td><%= link_to 'Delete', dontcall, method: :delete, data: { confirm: 'Are you sure?' } %></td>

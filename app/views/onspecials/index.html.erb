@@ -20,8 +20,8 @@
       <tr>
         <td><%= onspecial.customer %></td>
         <td><%= onspecial.part %></td>
-        <td><%= onspecial.onspecials_start %></td>
-        <td><%= onspecial.onspecials_end %></td>
+        <td><%= display_date(onspecial.onspecials_start) %></td>
+        <td><%= display_date(onspecial.onspecials_end) %></td>
         <td><%= link_to 'Show', onspecial %></td>
         <td><%= link_to 'Edit', edit_onspecial_path(onspecial) %></td>
         <td><%= link_to 'Delete', onspecial, method: :delete, data: { confirm: 'Are you sure?' } %></td>

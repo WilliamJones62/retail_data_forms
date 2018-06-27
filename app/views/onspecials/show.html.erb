@@ -12,12 +12,12 @@
 
 <p>
   <strong>Start:</strong>
-  <%= @onspecial.onspecials_start %>
+  <%= display_date(@onspecial.onspecials_start) %>
 </p>
 
 <p>
   <strong>End:</strong>
-  <%= @onspecial.onspecials_end %>
+  <%= display_date(@onspecial.onspecials_end) %>
 </p>
 
 <%= link_to 'Edit', edit_onspecial_path(@onspecial) %>
