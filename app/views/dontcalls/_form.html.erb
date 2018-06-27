@@ -24,9 +24,9 @@
       </thead>
       <tbody>
         <tr>
-          <td> <%= form.select :customer, @customer, {}, {:value => params[:customer], :id => "dontcall_customer", :onChange=> ('shipToList()')} %> </td>
+          <td> <%= form.select :customer, @customer, {}, {:value => params[:customer], :id => "dontcall_customer", :onChange=> ('dontSellLists()')} %> </td>
           <td> <%= form.select :shipto, @shipto, {}, {:value => params[:shipto], :id => "dontcall_shipto"} %> </td>
-          <td> <%= form.select :part, @part, {}, {:value => params[:part]} %> </td>
+          <td> <%= form.select :part, @part, {}, {:value => params[:part], :id => "dontcall_part"} %> </td>
           <td> <%= form.date_select :dontcalls_start, id: :dontcall_dontcalls_start %> </td>
           <td> <%= form.date_select :dontcalls_end, id: :dontcall_dontcalls_end %> </td>
         </tr>
@@ -39,4 +39,6 @@
   </div>
 <% end %>
 <p id= "customers" hidden> <%= @allcust %> </p>
+<p id= "customersA" hidden> <%= @allcustA %> </p>
 <p id= "shiptos" hidden> <%= @allshipto %> </p>
+<p id= "parts" hidden> <%= @allpart %> </p>

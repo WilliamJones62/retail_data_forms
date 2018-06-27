@@ -69,25 +69,34 @@ class DontcallsController < ApplicationController
     # Build lists of current customers, shiptos and parts
     def build_lists
       @customer = []
+      @customerA = []
       @allcust = []
+      @allcustA = []
       @allshipto = []
+      @allpart = []
       @shipto = []
       @part = []
       tempcust = []
       tempshipto = []
       temppart = []
-      authorlist = Authorlist.all
-      authorlist.each do |a|
-        if !temppart.include?(a.partcode)
-          temppart.push(a.partcode)
-        end
-      end
 
       if @new_dontcall
         firstcalllist = Calllist.first
         cust = firstcalllist.custcode
+        firstauthorlist = Authorlist.first
+        custA = firstauthorlist.custcode
       else
         cust = @dontcall.customer
+        custA = @dontcall.customer
+      end
+
+      authorlist = Authorlist.all
+      authorlist.each do |a|
+        if a.custcode == custA && !temppart.include?(a.partcode)
+          temppart.push(a.partcode)
+        end
+        @allcustA.push(a.custcode)
+        @allpart.push(a.partcode)
       end
 
       calllist = Calllist.all
