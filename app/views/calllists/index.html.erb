@@ -19,7 +19,7 @@
   <tbody>
     <% @calllists.each do |calllist| %>
       <tr>
-        <td><%= calllist.day %></td>
+        <td><%= calllist.calllists_day %></td>
         <td><%= calllist.custcode %></td>
         <td><%= calllist.shipto %></td>
         <td><%= calllist.dept %></td>
@@ -36,8 +36,8 @@
 
 <%= link_to 'New Call List', new_calllist_path %>
 
-<h2>Import Call Lists</h2>
-  <%= form_tag import_calllists_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import" %>
-<% end %>
+  <!-- <h2>Import Call Lists</h2> -->
+    <!-- <%= form_tag import_calllists_path, multipart: true do %> -->
+    <!-- <%= file_field_tag :file %> -->
+    <!-- <%= submit_tag "Import" %> -->
+  <!-- <% end %> -->
