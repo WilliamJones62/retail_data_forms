@@ -1,6 +1,5 @@
 class OnspecialsController < ApplicationController
   before_action :set_onspecial, only: [:show, :edit, :update, :destroy]
-  before_action :build_lists, only: [:new, :edit]
 
   # GET /onspecials
   # GET /onspecials.json
@@ -15,11 +14,15 @@ class OnspecialsController < ApplicationController
 
   # GET /onspecials/new
   def new
+    @new_onspecial = true
+    build_lists
     @onspecial = Onspecial.new
   end
 
   # GET /onspecials/1/edit
   def edit
+    @new_onspecial = false
+    build_lists
   end
 
   # POST /onspecials
@@ -67,17 +70,30 @@ class OnspecialsController < ApplicationController
     def build_lists
       @customer = []
       @part = []
+      @allcust = []
+      @allpart = []
+
+      if @new_onspecial
+        firstauthorlist = Authorlist.first
+        cust = firstauthorlist.custcode
+      else
+        cust = @onspecial.customer
+      end
+
       tempcust = []
       temppart = []
       authorlist = Authorlist.all
       authorlist.each do |a|
-        if !temppart.include?(a.partcode)
+        if a.custcode == cust && !temppart.include?(a.partcode)
           temppart.push(a.partcode)
         end
         if !tempcust.include?(a.custcode)
           tempcust.push(a.custcode)
         end
+        @allcust.push(a.custcode)
+        @allpart.push(a.partcode)
       end
+
 
       @customer = tempcust.sort
       @part = temppart.sort

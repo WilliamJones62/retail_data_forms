@@ -1,5 +1,6 @@
 class CalllistsController < ApplicationController
   before_action :set_calllist, only: [:show, :edit, :update, :destroy]
+  before_action :build_csr_list, only: [:list]
 
   # GET /calllists
   # GET /calllists.json
@@ -58,15 +59,33 @@ class CalllistsController < ApplicationController
     end
   end
 
-  def import
-    Calllist.import(params[:file])
-    redirect_to root_url, notice: "Call lists imported."
+  def list
+    @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Holiday']
+    @calllists = Calllist.all
   end
+
+  # def import
+    # Calllist.import(params[:file])
+    # redirect_to root_url, notice: "Call lists imported."
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_calllist
       @calllist = Calllist.find(params[:id])
+    end
+
+    # Build a list of current CSRs
+    def build_csr_list
+      @csr = []
+      tempcsr = []
+      calllist = Calllist.all
+      calllist.each do |c|
+        if c.csr && !tempcsr.include?(c.csr)
+          tempcsr.push(c.csr)
+        end
+      end
+      @csr = tempcsr.sort
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

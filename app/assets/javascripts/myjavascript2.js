@@ -12,7 +12,7 @@
 
   function dontSellLists()
     {
-    //******* need to match ship to list to customer
+    //******* need to match ship to and part list to customer
     var shiptos = document.getElementById("shiptos").innerHTML;
     var parts = document.getElementById("parts").innerHTML;
     var customers = document.getElementById("customers").innerHTML;
@@ -66,5 +66,38 @@
       p.text = sortarray[i];
       part.options.add(p, part.options.length);
       p = document.createElement("option");
+    }
+  }
+
+  function onSpecialLists()
+    {
+    //******* need to match part to list to customer
+    var parts = document.getElementById("parts").innerHTML;
+    var customers = document.getElementById("customers").innerHTML;
+    var part_array = getData(parts);
+    var customer_array = getData(customers);
+    var customer_list = document.getElementById("onspecial_customer");
+    var customer = customer_list.options[customer_list.selectedIndex].text;
+    var customerlength = customer_array.length;
+    var part = document.getElementById("onspecial_part");
+    var o = document.createElement("option");
+    var sortarray = [];
+    var i = 0;
+    part.options.length = 0;
+
+    for (i = 0; i < customerlength; i++) {
+      if (customer_array[i] == customer) {
+        if (sortarray.includes(part_array[i]) == false) {
+          sortarray[sortarray.length] = part_array[i];
+        }
+      }
+    }
+    sortarray.sort();
+    var sortlength = sortarray.length;
+
+    for (i = 0; i < sortlength; i++) {
+      o.text = sortarray[i];
+      part.options.add(o, part.options.length);
+      o = document.createElement("option");
     }
   }

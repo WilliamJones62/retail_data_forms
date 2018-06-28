@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Today's Call List</h1>
+<h2>Summary By Project</h2>
+<p id= "calllists" hidden> <%= @calllists %> </p>
+<h3>Select A CSR</h3>
+<select id="pickacsr" onchange="buildTable()">
+  <% @csr.each do |p| %>
+  <option value=p><%= p %></option>
+  <% end %>
+</select>
+<h3>Select A Day</h3>
+<select id="pickaday" onchange="buildTable()">
+  <% @day.each do |p| %>
+  <option value=p><%= p %></option>
+  <% end %>
+</select>
+<br>
+
+<div id="calllisttable" style="overflow:auto; height:200px">
+</div>

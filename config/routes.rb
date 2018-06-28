@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :altcsrs
   get 'home/show'
 
+  get 'calllists/list'
   resources :calllists do
     collection { post :import }
   end
