@@ -85,6 +85,7 @@ class CalllistsController < ApplicationController
       @dept = []
       @phone = []
       @manager = []
+      @called = []
       tempcsr = []
       calllist = Calllist.all
       calllist.each do |c|
@@ -95,6 +96,7 @@ class CalllistsController < ApplicationController
         @manager.push(c.manager)
         @dayid.push(c.calllists_day)
         @csrid.push(c.csr)
+        @called.push(c.called)
         if c.csr && !tempcsr.include?(c.csr)
           tempcsr.push(c.csr)
         end
@@ -106,6 +108,7 @@ class CalllistsController < ApplicationController
       @initial_dept = []
       @initial_phone = []
       @initial_manager = []
+      @initial_called = []
       calllist.each do |c|
         if c.csr && c.csr == @csr[0] && c.calllists_day == 'MONDAY'
           @initial_customer.push(c.custcode)
@@ -113,6 +116,7 @@ class CalllistsController < ApplicationController
           @initial_dept.push(c.dept)
           @initial_phone.push(c.phone)
           @initial_manager.push(c.manager)
+          @initial_called.push(c.called)
         end
       end
     end
