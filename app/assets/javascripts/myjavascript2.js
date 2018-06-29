@@ -115,6 +115,8 @@
     var phone = getData(ph);
     var man = document.getElementById("manager").innerHTML;
     var manager = getData(man);
+    var call = document.getElementById("called").innerHTML;
+    var called = getData(call);
     var pickacsr = document.getElementById("pickacsr");
     var csrsel = pickacsr.options[pickacsr.selectedIndex].text;
     var daysel = pickaday.options[pickaday.selectedIndex].text;
@@ -173,8 +175,10 @@
         cell.appendChild(cellText);
         row.appendChild(cell);
         cell = document.createElement("td");
-        cellText = document.createTextNode('No');
-        cell.appendChild(cellText);
+        input = document.createElement('input');
+        input.setAttribute("type","checkbox");
+        input.setAttribute("value",called[i]);
+        cell.appendChild(input);
         row.appendChild(cell);
         tbl.appendChild(row);
       }

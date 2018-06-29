@@ -6,6 +6,7 @@
 <p id= "dept" hidden> <%= @dept %> </p>
 <p id= "phone" hidden> <%= @phone %> </p>
 <p id= "manager" hidden> <%= @manager %> </p>
+<p id= "called" hidden> <%= @called %> </p>
 <p id= "csrid" hidden> <%= @csrid %> </p>
 <p id= "dayid" hidden> <%= @dayid %> </p>
 <h3>Select A CSR</h3>
@@ -44,7 +45,7 @@
           <td> <%= @initial_dept[i] %> </td>
           <td> <%= @initial_phone[i] %> </td>
           <td> <%= @initial_manager[i] %> </td>
-          <td> <%= @initial_called[i] %> </td>
+          <td> <input id="called" type="checkbox" value="@initial_called[i]" </td>
           <% i += 1 %>
         </tr>
       <% end %>
