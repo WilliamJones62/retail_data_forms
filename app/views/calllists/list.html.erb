@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Today's Call List</h1>
-<h2>Summary By Project</h2>
-<p id= "calllists" hidden> <%= @calllists %> </p>
+<p id= "customer" hidden> <%= @customer %> </p>
+<p id= "shipto" hidden> <%= @shipto %> </p>
+<p id= "dept" hidden> <%= @dept %> </p>
+<p id= "phone" hidden> <%= @phone %> </p>
+<p id= "manager" hidden> <%= @manager %> </p>
+<p id= "csrid" hidden> <%= @csrid %> </p>
+<p id= "dayid" hidden> <%= @dayid %> </p>
 <h3>Select A CSR</h3>
 <select id="pickacsr" onchange="buildTable()">
   <% @csr.each do |p| %>
@@ -16,6 +21,33 @@
   <% end %>
 </select>
 <br>
+<br>
 
-<div id="calllisttable" style="overflow:auto; height:200px">
+<div id="listtable" style="overflow:auto; height:200px">
+  <table id="listtab">
+    <thead>
+      <tr>
+        <th> Customer </th>
+        <th> Ship to </th>
+        <th> Dept </th>
+        <th> Phone </th>
+        <th> Manager </th>
+        <th> Called? </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% i = 0 %>
+      <% while i < @initial_customer.length do %>
+        <tr>
+          <td> <%= @initial_customer[i] %> </td>
+          <td> <%= @initial_shipto[i] %> </td>
+          <td> <%= @initial_dept[i] %> </td>
+          <td> <%= @initial_phone[i] %> </td>
+          <td> <%= @initial_manager[i] %> </td>
+          <td> No </td>
+          <% i += 1 %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

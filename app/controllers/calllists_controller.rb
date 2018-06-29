@@ -15,13 +15,13 @@ class CalllistsController < ApplicationController
 
   # GET /calllists/new
   def new
-    @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Holiday']
+    @day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'Holiday']
     @calllist = Calllist.new
   end
 
   # GET /calllists/1/edit
   def edit
-    @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Holiday']
+    @day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'Holiday']
   end
 
   # POST /calllists
@@ -60,8 +60,8 @@ class CalllistsController < ApplicationController
   end
 
   def list
-    @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Holiday']
-    @calllists = Calllist.all
+    @day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
+
   end
 
   # def import
@@ -78,14 +78,43 @@ class CalllistsController < ApplicationController
     # Build a list of current CSRs
     def build_csr_list
       @csr = []
+      @csrid = []
+      @dayid = []
+      @customer = []
+      @shipto = []
+      @dept = []
+      @phone = []
+      @manager = []
       tempcsr = []
       calllist = Calllist.all
       calllist.each do |c|
+        @customer.push(c.custcode)
+        @shipto.push(c.shipto)
+        @dept.push(c.dept)
+        @phone.push(c.phone)
+        @manager.push(c.manager)
+        @dayid.push(c.calllists_day)
+        @csrid.push(c.csr)
         if c.csr && !tempcsr.include?(c.csr)
           tempcsr.push(c.csr)
         end
       end
       @csr = tempcsr.sort
+    # Set up the call list for the first CSR
+      @initial_customer = []
+      @initial_shipto = []
+      @initial_dept = []
+      @initial_phone = []
+      @initial_manager = []
+      calllist.each do |c|
+        if c.csr && c.csr == @csr[0] && c.calllists_day == 'MONDAY'
+          @initial_customer.push(c.custcode)
+          @initial_shipto.push(c.shipto)
+          @initial_dept.push(c.dept)
+          @initial_phone.push(c.phone)
+          @initial_manager.push(c.manager)
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

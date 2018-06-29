@@ -1,5 +1,4 @@
-  function getData(data)
-  {
+  function getData(data) {
     var p1 = data.replace('[', "");
     var p2 = p1.replace(']', "");
     p1 = p2.replace(/"/g, "");
@@ -10,8 +9,7 @@
     return data_array;
   }
 
-  function dontSellLists()
-    {
+  function dontSellLists() {
     //******* need to match ship to and part list to customer
     var shiptos = document.getElementById("shiptos").innerHTML;
     var parts = document.getElementById("parts").innerHTML;
@@ -69,9 +67,8 @@
     }
   }
 
-  function onSpecialLists()
-    {
-    //******* need to match part to list to customer
+  function onSpecialLists() {
+    //******* need to match part list to customer
     var parts = document.getElementById("parts").innerHTML;
     var customers = document.getElementById("customers").innerHTML;
     var part_array = getData(parts);
@@ -100,4 +97,87 @@
       part.options.add(o, part.options.length);
       o = document.createElement("option");
     }
+  }
+  function buildTable() {
+    //******* build a call list for a CSR/Day combination
+    $('#listtab').remove();
+    var csr = document.getElementById("csrid").innerHTML;
+    var csrid = getData(csr);
+    var day = document.getElementById("dayid").innerHTML;
+    var dayid = getData(day);
+    var cust = document.getElementById("customer").innerHTML;
+    var customer = getData(cust);
+    var ship = document.getElementById("shipto").innerHTML;
+    var shipto = getData(ship);
+    var dpt = document.getElementById("dept").innerHTML;
+    var dept = getData(dpt);
+    var ph = document.getElementById("phone").innerHTML;
+    var phone = getData(ph);
+    var man = document.getElementById("manager").innerHTML;
+    var manager = getData(man);
+    var pickacsr = document.getElementById("pickacsr");
+    var csrsel = pickacsr.options[pickacsr.selectedIndex].text;
+    var daysel = pickaday.options[pickaday.selectedIndex].text;
+    var listtable = document.getElementById('listtable');
+    var tbl = document.createElement('table');
+    tbl.setAttribute("id","listtab");
+    var row = document.createElement('tr');
+    var headerCell = document.createElement("th");
+    var cellText = document.createTextNode('Customer');
+    headerCell.appendChild(cellText);
+    row.appendChild(headerCell);
+    headerCell = document.createElement("th");
+    cellText = document.createTextNode('Ship to');
+    headerCell.appendChild(cellText);
+    row.appendChild(headerCell);
+    headerCell = document.createElement("th");
+    cellText = document.createTextNode('Dept');
+    headerCell.appendChild(cellText);
+    row.appendChild(headerCell);
+    headerCell = document.createElement("th");
+    cellText = document.createTextNode('Phone');
+    headerCell.appendChild(cellText);
+    row.appendChild(headerCell);
+    headerCell = document.createElement("th");
+    cellText = document.createTextNode('Manager');
+    headerCell.appendChild(cellText);
+    row.appendChild(headerCell);
+    headerCell = document.createElement("th");
+    cellText = document.createTextNode('Called?');
+    headerCell.appendChild(cellText);
+    row.appendChild(headerCell);
+    tbl.appendChild(row);
+    //Add the data rows.
+    var length = customer.length;
+    for (var i = 0; i < length; i++) {
+      if (csrsel == csrid[i] && daysel == dayid[i]) {
+        var row = document.createElement("tr");
+        var cell = document.createElement("td");
+        cellText = document.createTextNode(customer[i]);
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+        cell = document.createElement("td");
+        cellText = document.createTextNode(shipto[i]);
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+        cell = document.createElement("td");
+        cellText = document.createTextNode(dept[i]);
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+        cell = document.createElement("td");
+        cellText = document.createTextNode(phone[i]);
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+        cell = document.createElement("td");
+        cellText = document.createTextNode(manager[i]);
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+        cell = document.createElement("td");
+        cellText = document.createTextNode('No');
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+        tbl.appendChild(row);
+      }
+    }
+    listtable.appendChild(tbl);
   }
