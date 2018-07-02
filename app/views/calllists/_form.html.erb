@@ -20,6 +20,7 @@
             <th> <%= form.label :calllists_day, "Day" %> </th>
             <th> <%= form.label :csr, "CSR" %> </th>
             <th> <%= form.label :rep, "Rep" %> </th>
+            <th> <%= form.label :called, "Called?" %> </th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
             <td> <%= form.select :calllists_day, @day, {}, {:value => params[:calllists_day]} %> </td>
             <td> <%= form.text_field :csr, id: :calllist_csr %> </td>
             <td> <%= form.text_field :rep, id: :calllist_rep %> </td>
+            <td> <%= form.check_box :called, id: :calllist_called %> </td>
           </tr>
         </tbody>
       </table>

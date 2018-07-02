@@ -117,6 +117,8 @@
     var manager = getData(man);
     var call = document.getElementById("called").innerHTML;
     var called = getData(call);
+    var call_id = document.getElementById("call_list_id").innerHTML;
+    var call_list_id = getData(call_id);
     var pickacsr = document.getElementById("pickacsr");
     var csrsel = pickacsr.options[pickacsr.selectedIndex].text;
     var daysel = pickaday.options[pickaday.selectedIndex].text;
@@ -148,6 +150,10 @@
     cellText = document.createTextNode('Called?');
     headerCell.appendChild(cellText);
     row.appendChild(headerCell);
+    headerCell = document.createElement("th");
+    cellText = document.createTextNode('Edit');
+    headerCell.appendChild(cellText);
+    row.appendChild(headerCell);
     tbl.appendChild(row);
     //Add the data rows.
     var length = customer.length;
@@ -175,10 +181,15 @@
         cell.appendChild(cellText);
         row.appendChild(cell);
         cell = document.createElement("td");
-        input = document.createElement('input');
-        input.setAttribute("type","checkbox");
-        input.setAttribute("value",called[i]);
-        cell.appendChild(input);
+        cellText = document.createTextNode(called[i]);
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+        cell = document.createElement("td");
+        var link = document.createElement('a');
+        var linkText = document.createTextNode("Edit");
+        link.appendChild(linkText);
+        link.setAttribute("href","/calllists/"+call_list_id[i]+"/edit");
+        cell.appendChild(link);
         row.appendChild(cell);
         tbl.appendChild(row);
       }

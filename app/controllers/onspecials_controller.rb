@@ -94,8 +94,8 @@ class OnspecialsController < ApplicationController
         @allpart.push(a.partcode)
       end
 
-
       @customer = tempcust.sort
+      @customer.insert(0,'ALL')
       @part = temppart.sort
     end
 
