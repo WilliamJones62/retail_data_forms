@@ -28,13 +28,26 @@ class OnspecialsController < ApplicationController
   # POST /onspecials
   # POST /onspecials.json
   def create
-    @onspecial = Onspecial.new(onspecial_params)
+    if onspecial_params[:customer] == 'ALL'
+      authorlists = Authorlist.all
+      authorlists.each do |a|
+        if onspecial_params[:part] == a.partcode
+          op = onspecial_params
+          op[:customer] = a.custcode
+          @onspecial = Onspecial.new(op)
+          @onspecial.save
+        end
+      end
+      redirect_to action: "index", notice: 'Onspecials were successfully created.'
+    else
+      @onspecial = Onspecial.new(onspecial_params)
 
-    respond_to do |format|
-      if @onspecial.save
-        format.html { redirect_to @onspecial, notice: 'Onspecial was successfully created.' }
-      else
-        format.html { render :new }
+      respond_to do |format|
+        if @onspecial.save
+          format.html { redirect_to @onspecial, notice: 'Onspecial was successfully created.' }
+        else
+          format.html { render :new }
+        end
       end
     end
   end
@@ -74,8 +87,7 @@ class OnspecialsController < ApplicationController
       @allpart = []
 
       if @new_onspecial
-        firstauthorlist = Authorlist.first
-        cust = firstauthorlist.custcode
+        cust = 'ALL'
       else
         cust = @onspecial.customer
       end
@@ -84,7 +96,7 @@ class OnspecialsController < ApplicationController
       temppart = []
       authorlist = Authorlist.all
       authorlist.each do |a|
-        if a.custcode == cust && !temppart.include?(a.partcode)
+        if (cust =='ALL' || a.custcode == cust) && !temppart.include?(a.partcode)
           temppart.push(a.partcode)
         end
         if !tempcust.include?(a.custcode)
@@ -95,7 +107,9 @@ class OnspecialsController < ApplicationController
       end
 
       @customer = tempcust.sort
-      @customer.insert(0,'ALL')
+      if @new_onspecial
+        @customer.insert(0,'ALL')
+      end
       @part = temppart.sort
     end
 

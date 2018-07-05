@@ -83,7 +83,7 @@
     part.options.length = 0;
 
     for (i = 0; i < customerlength; i++) {
-      if (customer_array[i] == customer) {
+      if (customer_array[i] == customer || customer == 'ALL') {
         if (sortarray.includes(part_array[i]) == false) {
           sortarray[sortarray.length] = part_array[i];
         }

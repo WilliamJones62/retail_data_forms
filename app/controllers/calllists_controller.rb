@@ -53,14 +53,20 @@ class CalllistsController < ApplicationController
     end
 
     respond_to do |format|
-      if @calllist.update(calllist_params)
-        if session[:called_update]
+      if session[:called_update]
+        cp = calllist_params
+        cp[:called_date] = Date.today
+        if @calllist.update(cp)
           format.html { redirect_to action: "list", notice: 'Calllist was successfully updated.' }
         else
-          format.html { redirect_to @calllist, notice: 'Calllist was successfully updated.' }
+          format.html { render :edit }
         end
       else
-        format.html { render :edit }
+        if @calllist.update(calllist_params)
+          format.html { redirect_to @calllist, notice: 'Calllist was successfully updated.' }
+        else
+          format.html { render :edit }
+        end
       end
     end
   end
@@ -76,6 +82,10 @@ class CalllistsController < ApplicationController
 
   def list
     @day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
+  end
+
+  def report
+    @report_list = Calllist.all
   end
 
   # def import
@@ -150,13 +160,19 @@ class CalllistsController < ApplicationController
 
     # After seven days reset the called flag to false.
     def reset_called_flag
+      now = Date.today
+      a_week_ago = now - 7
       calllists = Calllist.all
       calllists.each do |c|
-        if c.csr && c.csr == session[:called_csr] && c.calllists_day == session[:called_day]
+        if c.called && c.called_date < a_week_ago
+          c.called = false
+          c.save
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def calllist_params
-      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called)
+      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called, :called_date)
     end
 end
