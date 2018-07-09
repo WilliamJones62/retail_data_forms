@@ -12,7 +12,7 @@
     <strong>Rep:</strong>
     <%= @calllist.rep %>&emsp;&emsp;
     <strong>Called?:</strong>
-    <%= @calllist.called %>
+    <%= human_boolean(@calllist.called) %>
   </p>
 </fieldset>
 <p>
@@ -27,16 +27,16 @@
     <%= @calllist.shipto %>&emsp;&emsp;
     <strong>Dept:</strong>
     <%= @calllist.dept %>&emsp;&emsp;
-    <strong>Item:</strong>
-    <%= @calllist.item %>
+    <!-- <strong>Item:</strong> -->
+    <!-- <%= @calllist.item %> -->
   </p>
   <p>
     <strong>Phone:</strong>
     <%= @calllist.phone %>&emsp;&emsp;
     <strong>Manager:</strong>
     <%= @calllist.manager %>&emsp;&emsp;
-    <strong>Total Items:</strong>
-    <%= @calllist.totalitems %>
+    <!-- <strong>Total Items:</strong> -->
+    <!-- <%= @calllist.totalitems %> -->
   </p>
 </fieldset>
 <p>

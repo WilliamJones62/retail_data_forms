@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Today's Call List</h1>
+<h1>Route Call List</h1>
 <p id= "customer" hidden> <%= @customer %> </p>
 <p id= "shipto" hidden> <%= @shipto %> </p>
 <p id= "dept" hidden> <%= @dept %> </p>
@@ -13,16 +13,16 @@
 <table>
   <thead>
     <tr>
+      <th> Route </th>
       <th> CSR </th>
-      <th> Day </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
-        <select id="pickacsr" onchange="buildTable()">
-          <% @csr.each do |p| %>
-            <% if p == session[:called_csr] %>
+        <select id="pickaroute" onchange="buildRouteTable()">
+          <% @route.each do |p| %>
+            <% if p == session[:called_route] %>
               <option value=p selected><%= p %> </option>
             <% else %>
               <option value=p><%= p %></option>
@@ -31,9 +31,9 @@
         </select>
       </td>
       <td>
-        <select id="pickaday" onchange="buildTable()">
-          <% @day.each do |p| %>
-            <% if p == session[:called_day] %>
+        <select id="pickacsr" onchange="buildRouteTable()">
+          <% @csr.each do |p| %>
+            <% if p == session[:called_csr] %>
               <option value=p selected><%= p %> </option>
             <% else %>
               <option value=p><%= p %></option>
@@ -68,7 +68,7 @@
             <td><%= calllist.dept %></td>
             <td><%= calllist.phone %></td>
             <td><%= calllist.manager %></td>
-            <td><%= human_boolean(calllist.called) %></td>
+            <td><%= calllist.called %></td>
             <td><%= link_to 'Edit', edit_calllist_path(calllist) %></td>
           </tr>
         <% end %>

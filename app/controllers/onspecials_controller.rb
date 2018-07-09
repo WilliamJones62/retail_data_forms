@@ -2,13 +2,11 @@ class OnspecialsController < ApplicationController
   before_action :set_onspecial, only: [:show, :edit, :update, :destroy]
 
   # GET /onspecials
-  # GET /onspecials.json
   def index
     @onspecials = Onspecial.all
   end
 
   # GET /onspecials/1
-  # GET /onspecials/1.json
   def show
   end
 
@@ -26,7 +24,6 @@ class OnspecialsController < ApplicationController
   end
 
   # POST /onspecials
-  # POST /onspecials.json
   def create
     if onspecial_params[:customer] == 'ALL'
       authorlists = Authorlist.all
@@ -53,19 +50,29 @@ class OnspecialsController < ApplicationController
   end
 
   # PATCH/PUT /onspecials/1
-  # PATCH/PUT /onspecials/1.json
   def update
-    respond_to do |format|
-      if @onspecial.update(onspecial_params)
-        format.html { redirect_to @onspecial, notice: 'Onspecial was successfully updated.' }
-      else
-        format.html { render :edit }
+    if onspecial_params[:customer] == 'ALL'
+      authorlists = Authorlist.all
+      authorlists.each do |a|
+        if onspecial_params[:part] == a.partcode
+          op = onspecial_params
+          op[:customer] = a.custcode
+          @onspecial.update(op)
+        end
+      end
+      redirect_to action: "index", notice: 'Onspecials were successfully created.'
+    else
+      respond_to do |format|
+        if @onspecial.update(onspecial_params)
+          format.html { redirect_to @onspecial, notice: 'Onspecial was successfully updated.' }
+        else
+          format.html { render :edit }
+        end
       end
     end
   end
 
   # DELETE /onspecials/1
-  # DELETE /onspecials/1.json
   def destroy
     @onspecial.destroy
     respond_to do |format|

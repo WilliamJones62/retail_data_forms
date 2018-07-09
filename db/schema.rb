@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180702150242) do
+ActiveRecord::Schema.define(version: 20180706170753) do
 
   create_table "altcsrs", force: :cascade do |t|
     t.string "usualcsr"
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(version: 20180702150242) do
     t.datetime "updated_at", null: false
     t.date "onspecials_start"
     t.date "onspecials_end"
+  end
+
+  create_table "shiptos", force: :cascade do |t|
+    t.string "shipto_code"
+    t.string "route_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

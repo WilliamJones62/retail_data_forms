@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'home/show'
 
   get 'calllists/list'
+  get 'calllists/route'
   get 'calllists/report'
   resources :calllists do
     collection { post :import }
