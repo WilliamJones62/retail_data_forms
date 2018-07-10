@@ -1,6 +1,6 @@
 class CalllistsController < ApplicationController
   before_action :set_calllist, only: [:show, :edit, :update, :destroy]
-  before_action :build_csr_list, only: [:list]
+  before_action :build_csr_list, only: [:list, :route]
   before_action :reset_called_flag, only: [:index, :list]
 
   # GET /calllists
@@ -46,8 +46,8 @@ class CalllistsController < ApplicationController
       # just updated the called flag
       session[:called_csr] = calllist_params[:csr]
       session[:called_day] = calllist_params[:calllists_day]
-      # shipto = Shipto.where("shipto_code = ?", calllist_params[:shipto]).first
-      # session[:called_route] = shipto.route_code
+      shipto = Shipto.where("shipto_code = ?", calllist_params[:shipto]).first
+      session[:called_route] = shipto.route_code
       session[:called_update] = true
     end
 
@@ -82,8 +82,8 @@ class CalllistsController < ApplicationController
     @day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
   end
 
-  # def route
-  # end
+  def route
+  end
 
   def report
     @report_list = Calllist.all
@@ -102,21 +102,21 @@ class CalllistsController < ApplicationController
 
     # Build a list of current CSRs
     def build_csr_list
-      # @route = []
-      # temproute = []
-      # routes = Shipto.all
-      # routes.each do |r|
-        # if r.route_code && !temproute.include?(r.route_code)
-          # temproute.push(r.route_code)
-        # end
-      # end
-      # @route = temproute.sort
+      @route = []
+      temproute = []
+      routes = Shipto.all
+      routes.each do |r|
+        if r.route_code && !temproute.include?(r.route_code)
+          temproute.push(r.route_code)
+        end
+      end
+      @route = temproute.sort
       @csr = []
       @csrid = []
       @dayid = []
       @customer = []
       @shipto = []
-      # @routeid = []
+      @routeid = []
       @dept = []
       @phone = []
       @manager = []
@@ -127,14 +127,14 @@ class CalllistsController < ApplicationController
       calllist.each do |c|
         @customer.push(c.custcode)
         @shipto.push(c.shipto)
-        # shipto = Shipto.where("shipto_code = ?", c.shipto).first
-        # @routeid.push(shipto.route_code)
+        shipto = Shipto.where("shipto_code = ?", c.shipto).first
+        shipto ? @routeid.push(shipto.route_code) : @routeid.push(' ')
         @dept.push(c.dept)
         @phone.push(c.phone)
         @manager.push(c.manager)
         @dayid.push(c.calllists_day)
         @csrid.push(c.csr)
-        @called.push(c.called)
+        c.called ? @called.push('Yes') : @called.push('No')
         @call_list_id.push(c.id)
         if c.csr && !tempcsr.include?(c.csr)
           tempcsr.push(c.csr)
@@ -142,55 +142,25 @@ class CalllistsController < ApplicationController
       end
       @csr = tempcsr.sort
     # Set up the call list for the first CSR or the returning CSR after 'called' flag update
-      @initial_customer = []
-      @initial_shipto = []
-      @initial_dept = []
-      @initial_phone = []
-      @initial_manager = []
-      @initial_called = []
-      @initial_call_list_id = []
       @calllists = []
-      # @initial_route_customer = []
-      # @initial_route_shipto = []
-      # @initial_route = []
-      # @initial_route_dept = []
-      # @initial_route_phone = []
-      # @initial_route_manager = []
-      # @initial_route_called = []
-      # @initial_route_call_list_id = []
-      # @route_calllists = []
+      @route_calllists = []
 
       if !session[:called_csr] || session[:called_csr == '']
         # not returning from update of called flag
         session[:called_csr] = @csr[0]
         session[:called_day] = 'MONDAY'
-        # session[:called_route] = @route[0]
+        session[:called_route] = @route[0]
       end
 
       calllist.each do |c|
         if c.csr && c.csr == session[:called_csr]
           if c.calllists_day == session[:called_day]
-            @initial_customer.push(c.custcode)
-            @initial_shipto.push(c.shipto)
-            @initial_dept.push(c.dept)
-            @initial_phone.push(c.phone)
-            @initial_manager.push(c.manager)
-            @initial_called.push(c.called)
-            @initial_call_list_id.push(c.id)
             @calllists.push(c)
           end
-          # shipto = Shipto.where("shipto_code = ?", c.shipto).first
-          # if shipto.route_code == session[:called_route]
-            # @initial_route_customer.push(c.custcode)
-            # @initial_route_shipto.push(c.shipto)
-            # @initial_route.push(shipto.route_code)
-            # @initial_route_dept.push(c.dept)
-            # @initial_route_phone.push(c.phone)
-            # @initial_route_manager.push(c.manager)
-            # @initial_route_called.push(c.called)
-            # @initial_route_call_list_id.push(c.id)
-            # @route_calllists.push(c)
-          # end
+          shipto = Shipto.where("shipto_code = ?", c.shipto).first
+          if shipto.route_code == session[:called_route]
+            @route_calllists.push(c)
+          end
         end
       end
     end

@@ -9,7 +9,7 @@
 <p id= "called" hidden> <%= @called %> </p>
 <p id= "call_list_id" hidden> <%= @call_list_id %> </p>
 <p id= "csrid" hidden> <%= @csrid %> </p>
-<p id= "dayid" hidden> <%= @dayid %> </p>
+<p id= "routeid" hidden> <%= @routeid %> </p>
 <table>
   <thead>
     <tr>
@@ -68,7 +68,7 @@
             <td><%= calllist.dept %></td>
             <td><%= calllist.phone %></td>
             <td><%= calllist.manager %></td>
-            <td><%= calllist.called %></td>
+            <td><%= human_boolean(calllist.called) %></td>
             <td><%= link_to 'Edit', edit_calllist_path(calllist) %></td>
           </tr>
         <% end %>
