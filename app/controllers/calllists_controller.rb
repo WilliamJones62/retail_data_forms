@@ -205,9 +205,21 @@ class CalllistsController < ApplicationController
         # session[:called_route] = @route[0]
       end
 
+      @altcsr = []
+      @usualcsr = []
+      now = Date.today
+      altcsr = Altcsr.all
+      altcsr.each do |a|
+        if a.altcsrs_start <= now && a.altcsrs_end >= now
+          @altcsr.push(a.altcsr)
+          @usualcsr.push(a.usualcsr)
+        end
+      end
+
       calllist.each do |c|
-        if c.csr && c.csr == session[:called_csr]
-          if c.calllists_day == session[:called_day]
+        if c.csr
+          if c.calllists_day == session[:called_day] && (c.csr == session[:called_csr] || (@usualcsr.include?(c.csr) && session[:called_csr] == @altcsr[@usualcsr.index(c.csr)]))
+            # include call list records that are a direct match for csr and also if there is an altcsr override active for another csr
             @calllists.push(c)
           end
           # shipto = Shipto.where("shipto_code = ?", c.shipto).first

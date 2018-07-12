@@ -101,6 +101,10 @@
   function buildTable() {
     //******* build a call list for a CSR/Day combination
     $('#listtab').remove();
+    var usual = document.getElementById("usualcsr").innerHTML;
+    var usualcsr = getData(usual);
+    var alt = document.getElementById("altcsr").innerHTML;
+    var altcsr = getData(alt);
     var csr = document.getElementById("csrid").innerHTML;
     var csrid = getData(csr);
     var day = document.getElementById("dayid").innerHTML;
@@ -159,7 +163,7 @@
     //Add the data rows.
     var length = customer.length;
     for (var i = 0; i < length; i++) {
-      if (csrsel == csrid[i] && daysel == dayid[i]) {
+      if (daysel == dayid[i] && (csrsel == csrid[i] || (usualcsr.includes(csrid[i]) && csrsel == altcsr[usualcsr.indexOf(csrid[i])]))) {
         var row = document.createElement("tr");
         var cell = document.createElement("td");
         cellText = document.createTextNode(customer[i].replace(/~/g, " "));
