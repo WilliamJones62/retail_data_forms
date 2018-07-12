@@ -68,7 +68,8 @@
             <td><%= calllist.dept %></td>
             <td><%= calllist.phone %></td>
             <td><%= calllist.manager %></td>
-            <td><%= human_boolean(calllist.called) %></td>
+            <td><%= link_to human_boolean(calllist.called), calllists_list_update_path(:id => calllist.id) %></td>
+            <!-- <td><%= human_boolean(calllist.called) %></td> -->
             <td><%= link_to 'Edit', edit_calllist_path(calllist) %></td>
           </tr>
         <% end %>
