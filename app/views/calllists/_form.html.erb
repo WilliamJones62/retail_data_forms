@@ -21,6 +21,7 @@
             <th> <%= form.label :csr, "CSR" %> </th>
             <th> <%= form.label :rep, "Rep" %> </th>
             <th> <%= form.label :called, "Called?" %> </th>
+            <th> <%= form.label :ordered, "Ordered?" %> </th>
           </tr>
         </thead>
         <tbody>
@@ -29,6 +30,7 @@
             <td> <%= form.text_field :csr, id: :calllist_csr %> </td>
             <td> <%= form.text_field :rep, id: :calllist_rep %> </td>
             <td> <%= form.check_box :called, id: :calllist_called %> </td>
+            <td> <%= form.check_box :ordered, id: :calllist_ordered %> </td>
           </tr>
         </tbody>
       </table>
@@ -63,6 +65,7 @@
           <tr>
             <th> <%= form.label :phone, "Phone" %> </th>
             <th> <%= form.label :manager, "Manager" %> </th>
+            <th> <%= form.label :notes, "Notes" %> </th>
             <!-- <th> <%= form.label :totalitems, "Total items" %> </th> -->
           </tr>
         </thead>
@@ -70,6 +73,7 @@
           <tr>
             <td> <%= form.text_field :phone, id: :calllist_phone %> </td>
             <td> <%= form.text_field :manager, id: :calllist_manager %> </td>
+            <td> <%= form.text_field :notes, id: :calllist_notes %> </td>
             <!-- <td> <%= form.text_field :totalitems, id: :calllist_totalitems %> </td> -->
           </tr>
         </tbody>

@@ -1,5 +1,5 @@
 class CalllistsController < ApplicationController
-  before_action :set_calllist, only: [:show, :edit, :update, :destroy, :list_update]
+  before_action :set_calllist, only: [:show, :edit, :update, :destroy]
   before_action :build_csr_list, only: [:list]
   before_action :reset_called_flag, only: [:index, :list]
 
@@ -42,7 +42,7 @@ class CalllistsController < ApplicationController
     session[:called_day] = ''
     session[:called_csr] = ''
     # session[:called_route] = ''
-    if @calllist.called != calllist_params[:called]
+    if @calllist.called != calllist_params[:called] || @calllist.ordered != calllist_params[:ordered] || @calllist.notes != calllist_params[:notes]
       # just updated the called flag
       session[:called_csr] = calllist_params[:csr]
       session[:called_day] = calllist_params[:calllists_day]
@@ -79,25 +79,60 @@ class CalllistsController < ApplicationController
   end
 
   def list
-    @day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
+    # if session[:change]
+      # logger.info 'Bill Jones - hello'
+    # end
+    day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
+    @day = []
+    i = 1
+    @selected_day = 0
+    day.each do |d|
+      select_item = []
+      select_item.push(d)
+      select_item.push(i)
+      @day.push(select_item)
+      if d == session[:called_day]
+        @selected_day = i
+      end
+      i += 1
+    end
+    session[:calllist_days] = @day
   end
 
-  def list_update
-    session[:called_update] = false
-    session[:called_day] = ''
-    session[:called_csr] = ''
-    session[:called_csr] = @calllist.csr
-    session[:called_day] = @calllist.calllists_day
-    session[:called_update] = true
-    # toggle the called boolean
-    @calllist.called ? @calllist.update(called: false, called_date: Date.today) : @calllist.update(called: true, called_date: Date.today)
+  def selected
+    csrs = []
+    csrs = session[:calllist_csrs]
+    days = []
+    days = session[:calllist_days]
+    csrs.each do |c|
+      select_item = []
+      select_item = c
+      if params[:called_csr] == select_item[1].to_s
+        session[:called_csr] = select_item[0]
+        break
+      end
+    end
+    days.each do |c|
+      select_item = []
+      select_item = c
+      if params[:called_day] == select_item[1].to_s
+        session[:called_day] = select_item[0]
+        break
+      end
+    end
+    # redirect_to root_url, notice: "Hello big boy"
+    # redirect_to "/calllists/list"
     redirect_to action: "list"
   end
 
   def route
   end
 
-  def report
+  def not_called
+    @report_list = Calllist.all
+  end
+
+  def not_ordered
     @report_list = Calllist.all
   end
 
@@ -124,86 +159,40 @@ class CalllistsController < ApplicationController
       # end
       # @route = temproute.sort
       @csr = []
-      @csrid = []
-      @dayid = []
-      @customer = []
-      @shipto = []
-      @routeid = []
-      @dept = []
-      @phone = []
-      @manager = []
-      @called = []
-      @call_list_id = []
+      csr = []
       tempcsr = []
-      temp = ' '
-      temp_phone = ' '
-      temp_manager = ' '
-      temp_dept = ' '
       calllist = Calllist.all
       calllist.each do |c|
-        if c.custcode
-          @customer.push(c.custcode)
-        else
-          @customer.push('~')
-        end
-        if c.shipto
-          @shipto.push(c.shipto)
-        else
-          @shipto.push('~')
-        end
-          # shipto = Shipto.where("shipto_code = ?", c.shipto).first
-          # shipto ? @routeid.push(shipto.route_code) : @routeid.push(' ')
-        if c.dept
-          temp_dept = c.dept.gsub(' ','~')
-          temp = temp_dept.gsub('[','`')
-          temp_dept = temp.gsub(']','^')
-          @dept.push(temp_dept)
-        else
-          @dept.push('~')
-        end
-        if c.phone
-          temp_phone = c.phone.gsub(' ','~')
-          temp = temp_phone.gsub('[','`')
-          temp_phone = temp.gsub(']','^')
-          @phone.push(temp_phone)
-        else
-          @phone.push('~')
-        end
-        if c.manager
-          temp_manager = c.manager.gsub(' ','~')
-          temp = temp_manager.gsub('[','`')
-          temp_manager = temp.gsub(']','^')
-          @manager.push(temp_manager)
-        else
-          @manager.push('~')
-        end
-        if c.calllists_day
-          @dayid.push(c.calllists_day)
-        else
-          @dayid.push('~')
-        end
-        if c.csr
-          @csrid.push(c.csr)
-        else
-          @csrid.push('~')
-        end
-        c.called ? @called.push('Yes') : @called.push('No')
-        @call_list_id.push(c.id)
         if c.csr && !tempcsr.include?(c.csr)
           tempcsr.push(c.csr)
         end
       end
-      @csr = tempcsr.sort
-    # Set up the call list for the first CSR or the returning CSR after 'called' flag update
-      @calllists = []
-      # @route_calllists = []
 
+      csr = tempcsr.sort
       if !session[:called_csr] || session[:called_csr == '']
         # not returning from update of called flag
-        session[:called_csr] = @csr[0]
+        session[:called_csr] = csr[0]
         session[:called_day] = 'MONDAY'
         # session[:called_route] = @route[0]
       end
+
+      i = 1
+      @selected_csr = 0
+      csr.each do |c|
+        select_item = []
+        select_item.push(c)
+        select_item.push(i)
+        @csr.push(select_item)
+        if c == session[:called_csr]
+          @selected_csr = i
+        end
+        i += 1
+      end
+      session[:calllist_csrs] = @csr
+
+    # Set up the call list for the first CSR or the returning CSR after 'called' flag update
+      @calllists = []
+      # @route_calllists = []
 
       @altcsr = []
       @usualcsr = []
@@ -245,6 +234,6 @@ class CalllistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def calllist_params
-      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called, :called_date, :id)
+      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called, :called_date, :id, :ordered, :notes, :called_csr, :called_day)
     end
 end

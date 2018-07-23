@@ -1,58 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Today's Call List</h1>
+<h2>Today's Call List</h2>
 
-<p id= "customer" hidden> <%= @customer %> </p>
-<p id= "shipto" hidden> <%= @shipto %> </p>
-<p id= "dept" hidden> <%= @dept %> </p>
-<p id= "phone" hidden> <%= @phone %> </p>
-<p id= "manager" hidden> <%= @manager %> </p>
-<p id= "called" hidden> <%= @called %> </p>
-<p id= "call_list_id" hidden> <%= @call_list_id %> </p>
-<p id= "csrid" hidden> <%= @csrid %> </p>
-<p id= "dayid" hidden> <%= @dayid %> </p>
-<p id= "altcsr" hidden> <%= @altcsr %> </p>
-<p id= "usualcsr" hidden> <%= @usualcsr %> </p>
+<%= form_with url: calllists_selected_path, local: true, method: 'get' do |f| %>
+  <%= f.select(:called_csr, options_for_select(@csr, @selected_csr)) %>
+  <%= f.select(:called_day, options_for_select(@day, @selected_day)) %>
+  <%= f.submit "Change" %>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th> CSR </th>
-      <th> Day </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <select id="pickacsr" onchange="buildTable()">
-          <% @csr.each do |p| %>
-            <% if p == session[:called_csr] %>
-              <option value=p selected><%= p %> </option>
-            <% else %>
-              <option value=p><%= p %></option>
-            <% end %>
-          <% end %>
-        </select>
-      </td>
-      <td>
-        <select id="pickaday" onchange="buildTable()">
-          <% @day.each do |p| %>
-            <% if p == session[:called_day] %>
-              <option value=p selected><%= p %> </option>
-            <% else %>
-              <option value=p><%= p %></option>
-            <% end %>
-          <% end %>
-        </select>
-      </td>
-    </tr>
-  </tbody>
-</table>
 <br>
 
 <div id="listtable">
-  <form action="/calllists/list_update">
-    <table id="listtab">
+  <div id="listdiv">
+    <table id="listtab" class="mytable" class="display" cellspacing="0" >
       <thead>
         <tr>
           <th> Customer </th>
@@ -60,7 +20,9 @@
           <th> Dept </th>
           <th> Phone </th>
           <th> Manager </th>
+          <th> Notes </th>
           <th> Called? </th>
+          <th> Ordered? </th>
           <th> Edit </th>
         </tr>
       </thead>
@@ -72,12 +34,13 @@
             <td><%= calllist.dept %></td>
             <td><%= calllist.phone %></td>
             <td><%= calllist.manager %></td>
-            <td><%= link_to human_boolean(calllist.called), calllists_list_update_path(:id => calllist.id) %></td>
-            <!-- <td><%= human_boolean(calllist.called) %></td> -->
-            <td><%= link_to 'Edit', edit_calllist_path(calllist) %></td>
+            <td> <%= calllist.notes %> </td>
+            <td> <%= human_boolean(calllist.called) %> </td>
+            <td> <%= human_boolean(calllist.ordered) %></td>
+            <td> <%= link_to 'Edit', edit_calllist_path(calllist) %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
-  </form>
+  </div>
 </div>

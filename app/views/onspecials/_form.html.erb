@@ -11,26 +11,24 @@
     </div>
   <% end %>
 
-  <p>
-    <table>
-      <thead>
-        <tr>
-          <th> <%= form.label :customer, "Customer code" %> </th>
-          <th> <%= form.label :part, "Part code" %> </th>
-          <th> <%= form.label :onspecials_start, "Start date" %> </th>
-          <th> <%= form.label :onspecials_end, "End date" %> </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td> <%= form.select :customer, @customer, {}, {:value => params[:customer], :id => "onspecial_customer", :onChange=> ('onSpecialLists()')} %> </td>
-          <td> <%= form.select :part, @part, {}, {:value => params[:part], :id => "onspecial_part"} %> </td>
-          <td> <%= form.date_select :onspecials_start, id: :onspecial_onspecials_start %> </td>
-          <td> <%= form.date_select :onspecials_end, id: :onspecial_onspecials_end %> </td>
-        </tr>
-      </tbody>
-    </table>
-  </p>
+  <table>
+    <thead>
+      <tr>
+        <th> <%= form.label :customer, "Customer code" %> </th>
+        <th> <%= form.label :part, "Part code" %> </th>
+        <th> <%= form.label :onspecials_start, "Start date" %> </th>
+        <th> <%= form.label :onspecials_end, "End date" %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= form.select :customer, @customer, {}, {:value => params[:customer], :id => "onspecial_customer", :onChange=> ('onSpecialLists()')} %> </td>
+        <td> <%= form.select :part, @part, {}, {:value => params[:part], :id => "onspecial_part"} %> </td>
+        <td> <%= form.date_select :onspecials_start, id: :onspecial_onspecials_start %> </td>
+        <td> <%= form.date_select :onspecials_end, id: :onspecial_onspecials_end %> </td>
+      </tr>
+    </tbody>
+  </table>
 
   <div class="actions">
     <%= form.submit %>

@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Showing Call List</h1>
+<h2>Showing Call List</h2>
 
 <fieldset>
   <legend><strong>CSR Detail</strong></legend>
@@ -12,7 +12,9 @@
     <strong>Rep:</strong>
     <%= @calllist.rep %>&emsp;&emsp;
     <strong>Called?:</strong>
-    <%= human_boolean(@calllist.called) %>
+    <%= human_boolean(@calllist.called) %>&emsp;&emsp;
+    <strong>Ordered?:</strong>
+    <%= human_boolean(@calllist.ordered) %>
   </p>
 </fieldset>
 <p>
@@ -26,7 +28,7 @@
     <strong>Ship To:</strong>
     <%= @calllist.shipto %>&emsp;&emsp;
     <strong>Dept:</strong>
-    <%= @calllist.dept %>&emsp;&emsp;
+    <%= @calllist.dept %>
     <!-- <strong>Item:</strong> -->
     <!-- <%= @calllist.item %> -->
   </p>
@@ -35,6 +37,8 @@
     <%= @calllist.phone %>&emsp;&emsp;
     <strong>Manager:</strong>
     <%= @calllist.manager %>&emsp;&emsp;
+    <strong>Notes:</strong>
+    <%= @calllist.notes %>
     <!-- <strong>Total Items:</strong> -->
     <!-- <%= @calllist.totalitems %> -->
   </p>

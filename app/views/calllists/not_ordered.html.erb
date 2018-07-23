@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Not Ordered This Week</h2>
+<table id="not_ordered" class="mytable" class="display" cellspacing="0">
+  <thead>
+    <tr>
+      <th> Customer </th>
+      <th> Ship to </th>
+      <th> CSR </th>
+      <th> Day </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @report_list.each do |r| %>
+      <% if !r.ordered %>
+        <tr>
+          <td><%= r.custcode %></td>
+          <td><%= r.shipto %></td>
+          <td><%= r.csr %></td>
+          <td><%= r.calllists_day %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

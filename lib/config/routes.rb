@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   get 'home/show'
 
   get 'calllists/list'
-  get 'calllists/selected'
+  get 'calllists/called_update'
+  get 'calllists/ordered_update'
   get 'calllists/route'
   get 'calllists/not_called'
   get 'calllists/not_ordered'
