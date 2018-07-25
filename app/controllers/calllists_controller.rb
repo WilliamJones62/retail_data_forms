@@ -79,9 +79,6 @@ class CalllistsController < ApplicationController
   end
 
   def list
-    # if session[:change]
-      # logger.info 'Bill Jones - hello'
-    # end
     day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
     @day = []
     i = 1
@@ -120,8 +117,6 @@ class CalllistsController < ApplicationController
         break
       end
     end
-    # redirect_to root_url, notice: "Hello big boy"
-    # redirect_to "/calllists/list"
     redirect_to action: "list"
   end
 
@@ -196,18 +191,24 @@ class CalllistsController < ApplicationController
 
       @altcsr = []
       @usualcsr = []
+      @shipto = []
+      @altcsrs_day = []
+      @custcode = []
       now = Date.today
       altcsr = Altcsr.all
       altcsr.each do |a|
-        if a.altcsrs_start <= now && a.altcsrs_end >= now
+        if a.altcsrs_start <= now + 1 && a.altcsrs_end >= now
           @altcsr.push(a.altcsr)
           @usualcsr.push(a.usualcsr)
+          @shipto.push(a.shipto)
+          @altcsrs_day.push(a.altcsrs_day)
+          @custcode.push(a.custcode)
         end
       end
 
       calllist.each do |c|
         if c.csr
-          if c.calllists_day == session[:called_day] && (c.csr == session[:called_csr] || (@usualcsr.include?(c.csr) && session[:called_csr] == @altcsr[@usualcsr.index(c.csr)]))
+          if c.calllists_day == session[:called_day] && (c.csr == session[:called_csr] || (@usualcsr.include?(c.csr) && session[:called_csr] == @altcsr[@usualcsr.index(c.csr)] && c.custcode == @custcode[@usualcsr.index(c.csr)] && c.shipto == @shipto[@usualcsr.index(c.csr)] && c.calllists_day == @altcsrs_day[@usualcsr.index(c.csr)]))
             # include call list records that are a direct match for csr and also if there is an altcsr override active for another csr
             @calllists.push(c)
           end
@@ -222,11 +223,12 @@ class CalllistsController < ApplicationController
     # After seven days reset the called flag to false.
     def reset_called_flag
       now = Date.today
-      a_week_ago = now - 7
+      a_week_ago = now - 6
       calllists = Calllist.all
       calllists.each do |c|
         if c.called && c.called_date < a_week_ago
           c.called = false
+          c.ordered = false
           c.save
         end
       end

@@ -2,13 +2,11 @@ class DontcallsController < ApplicationController
   before_action :set_dontcall, only: [:show, :edit, :update, :destroy]
 
   # GET /dontcalls
-  # GET /dontcalls.json
   def index
     @dontcalls = Dontcall.all
   end
 
   # GET /dontcalls/1
-  # GET /dontcalls/1.json
   def show
   end
 
@@ -26,7 +24,6 @@ class DontcallsController < ApplicationController
   end
 
   # POST /dontcalls
-  # POST /dontcalls.json
   def create
     @dontcall = Dontcall.new(dontcall_params)
 
@@ -40,7 +37,6 @@ class DontcallsController < ApplicationController
   end
 
   # PATCH/PUT /dontcalls/1
-  # PATCH/PUT /dontcalls/1.json
   def update
     respond_to do |format|
       if @dontcall.update(dontcall_params)
@@ -52,7 +48,6 @@ class DontcallsController < ApplicationController
   end
 
   # DELETE /dontcalls/1
-  # DELETE /dontcalls/1.json
   def destroy
     @dontcall.destroy
     respond_to do |format|

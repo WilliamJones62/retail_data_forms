@@ -6,6 +6,9 @@
   <thead>
     <tr>
       <th>Usual CSR</th>
+      <th>Day</th>
+      <th>Customer</th>
+      <th>Ship to</th>
       <th>Alternate CSR</th>
       <th>Start</th>
       <th>End</th>
@@ -19,6 +22,9 @@
     <% @altcsrs.each do |altcsr| %>
       <tr>
         <td><%= altcsr.usualcsr %></td>
+        <td><%= altcsr.altcsrs_day %></td>
+        <td><%= altcsr.custcode %></td>
+        <td><%= altcsr.shipto %></td>
         <td><%= altcsr.altcsr %></td>
         <td><%= display_date(altcsr.altcsrs_start) %></td>
         <td><%= display_date(altcsr.altcsrs_end) %></td>

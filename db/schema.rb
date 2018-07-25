@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180713173022) do
+ActiveRecord::Schema.define(version: 20180724170249) do
 
   create_table "altcsrs", force: :cascade do |t|
     t.string "usualcsr"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 20180713173022) do
     t.datetime "updated_at", null: false
     t.date "altcrs_start"
     t.date "altcrs_end"
+    t.string "shipto"
+    t.string "altcsrs_day"
+    t.string "custcode"
   end
 
   create_table "authorlists", force: :cascade do |t|
