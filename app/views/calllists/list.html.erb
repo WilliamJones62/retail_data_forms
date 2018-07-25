@@ -21,6 +21,7 @@
           <th> Phone </th>
           <th> Manager </th>
           <th> Notes </th>
+          <th> CSR </th>
           <th> Called? </th>
           <th> Ordered? </th>
           <th> Edit </th>
@@ -35,6 +36,7 @@
             <td><%= calllist.phone %></td>
             <td><%= calllist.manager %></td>
             <td> <%= calllist.notes %> </td>
+            <td> <%= calllist.csr %> </td>
             <td> <%= human_boolean(calllist.called) %> </td>
             <td> <%= human_boolean(calllist.ordered) %></td>
             <td> <%= link_to 'Edit', edit_calllist_path(calllist) %></td>

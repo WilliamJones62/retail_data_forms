@@ -208,7 +208,17 @@ class CalllistsController < ApplicationController
 
       calllist.each do |c|
         if c.csr
-          if c.calllists_day == session[:called_day] && (c.csr == session[:called_csr] || (@usualcsr.include?(c.csr) && session[:called_csr] == @altcsr[@usualcsr.index(c.csr)] && c.custcode == @custcode[@usualcsr.index(c.csr)] && c.shipto == @shipto[@usualcsr.index(c.csr)] && c.calllists_day == @altcsrs_day[@usualcsr.index(c.csr)]))
+          altcsr_found = false
+          altcsr_length = @altcsr.length
+          i = 0
+          while i < altcsr_length
+            if @usualcsr[i] == c.csr && session[:called_csr] == @altcsr[i] && c.custcode == @custcode[i] && c.shipto == @shipto[i] && c.calllists_day == @altcsrs_day[i]
+              altcsr_found = true
+              break
+            end
+            i += 1 
+          end
+          if c.calllists_day == session[:called_day] && (c.csr == session[:called_csr] || altcsr_found)
             # include call list records that are a direct match for csr and also if there is an altcsr override active for another csr
             @calllists.push(c)
           end
