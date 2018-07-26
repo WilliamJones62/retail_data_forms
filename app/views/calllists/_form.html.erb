@@ -79,6 +79,20 @@
         </tbody>
       </table>
     </p>
+    <p>
+      <table>
+        <thead>
+          <tr>
+            <th> <%= form.label :callback_day, "Callback day" %> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <%= form.select :callback_day, @day, {}, {:value => params[:callback_day]} %> </td>
+          </tr>
+        </tbody>
+      </table>
+    </p>
   </fieldset>
   <p>
   </p>

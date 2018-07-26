@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180724170249) do
+ActiveRecord::Schema.define(version: 20180726150420) do
 
   create_table "altcsrs", force: :cascade do |t|
     t.string "usualcsr"
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 20180724170249) do
     t.date "called_date"
     t.boolean "ordered"
     t.string "notes"
+    t.string "callback_day"
+    t.date "callback_date"
   end
 
   create_table "dontcalls", force: :cascade do |t|

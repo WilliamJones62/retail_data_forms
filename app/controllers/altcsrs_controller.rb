@@ -27,11 +27,18 @@ class AltcsrsController < ApplicationController
 
   # POST /altcsrs
   def create
+    session[:altcsr_day] = altcsr_params[:altcsrs_day]
+    session[:altcsr_csr] = altcsr_params[:altcsrs_day]
+    session[:altcsr_customer] = altcsr_params[:altcsrs_day]
+    session[:altcsr_altcsr] = altcsr_params[:altcsrs_day]
+    session[:altcsr_start] = altcsr_params[:altcsrs_day]
+    session[:altcsr_end] = altcsr_params[:altcsrs_day]
     @altcsr = Altcsr.new(altcsr_params)
 
     respond_to do |format|
       if @altcsr.save
-        format.html { redirect_to @altcsr, notice: 'Altcsr was successfully created.' }
+        # format.html { redirect_to @altcsr, notice: 'Altcsr was successfully created.' }
+        format.html { redirect_to new_altcsr_path, notice: 'Altcsr was successfully created.' }
       else
         format.html { render :new }
       end

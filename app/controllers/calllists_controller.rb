@@ -1,6 +1,7 @@
 class CalllistsController < ApplicationController
   before_action :set_calllist, only: [:show, :edit, :update, :destroy]
   before_action :build_csr_list, only: [:list]
+  before_action :build_route_list, only: [:routelist]
   before_action :reset_called_flag, only: [:index, :list]
 
   # GET /calllists
@@ -55,6 +56,12 @@ class CalllistsController < ApplicationController
       if session[:called_update]
         cp = calllist_params
         cp[:called_date] = Date.today
+        if @calllist.notes != calllist_params[:notes] && calllist_params[:notes] != '' && calllist_params[:notes] != ' '
+          # if notes have changed to something other than nothing add today's date
+          notes = cp[:notes]
+          formatted = Date.today.strftime("%e %b %Y")
+          cp[:notes] = notes + ' (' + formatted + ')'
+        end
         if @calllist.update(cp)
           format.html { redirect_to action: "list"}
         else
@@ -120,7 +127,10 @@ class CalllistsController < ApplicationController
     redirect_to action: "list"
   end
 
-  def route
+  def routelist
+  end
+
+  def routeselected
   end
 
   def not_called
@@ -148,9 +158,9 @@ class CalllistsController < ApplicationController
       # temproute = []
       # routes = Shipto.all
       # routes.each do |r|
-        # if r.route_code && !temproute.include?(r.route_code)
-          # temproute.push(r.route_code)
-        # end
+      #   if r.route_code && !temproute.include?(r.route_code)
+      #     temproute.push(r.route_code)
+      #   end
       # end
       # @route = temproute.sort
       @csr = []
@@ -216,9 +226,9 @@ class CalllistsController < ApplicationController
               altcsr_found = true
               break
             end
-            i += 1 
+            i += 1
           end
-          if c.calllists_day == session[:called_day] && (c.csr == session[:called_csr] || altcsr_found)
+          if (c.calllists_day == session[:called_day] || c.callback_day == session[:called_day]) && (c.csr == session[:called_csr] || altcsr_found)
             # include call list records that are a direct match for csr and also if there is an altcsr override active for another csr
             @calllists.push(c)
           end
@@ -241,11 +251,15 @@ class CalllistsController < ApplicationController
           c.ordered = false
           c.save
         end
+        if c.callback_day && c.callback_day != '' && c.callback_date && c.callback_date < a_week_ago
+          c.callback_day = ''
+          c.save
+        end
       end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def calllist_params
-      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called, :called_date, :id, :ordered, :notes, :called_csr, :called_day)
+      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called, :called_date, :id, :ordered, :notes, :called_csr, :called_day, :callback_day, :callback_date)
     end
 end
