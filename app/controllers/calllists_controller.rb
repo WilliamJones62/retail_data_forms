@@ -47,8 +47,6 @@ class CalllistsController < ApplicationController
       # just updated the called flag
       session[:called_csr] = calllist_params[:csr]
       session[:called_day] = calllist_params[:calllists_day]
-      # shipto = Shipto.where("shipto_code = ?", calllist_params[:shipto]).first
-      # session[:called_route] = shipto.route_code
       session[:called_update] = true
     end
 
@@ -131,6 +129,17 @@ class CalllistsController < ApplicationController
   end
 
   def routeselected
+    routes = []
+    routes = session[:calllist_routes]
+    routes.each do |c|
+      select_item = []
+      select_item = c
+      if params[:called_route] == select_item[1].to_s
+        session[:called_route] = select_item[0]
+        break
+      end
+    end
+    redirect_to action: "routelist"
   end
 
   def not_called
@@ -154,15 +163,6 @@ class CalllistsController < ApplicationController
 
     # Build a list of current CSRs
     def build_csr_list
-      # @route = []
-      # temproute = []
-      # routes = Shipto.all
-      # routes.each do |r|
-      #   if r.route_code && !temproute.include?(r.route_code)
-      #     temproute.push(r.route_code)
-      #   end
-      # end
-      # @route = temproute.sort
       @csr = []
       csr = []
       tempcsr = []
@@ -178,7 +178,6 @@ class CalllistsController < ApplicationController
         # not returning from update of called flag
         session[:called_csr] = csr[0]
         session[:called_day] = 'MONDAY'
-        # session[:called_route] = @route[0]
       end
 
       i = 1
@@ -197,7 +196,6 @@ class CalllistsController < ApplicationController
 
     # Set up the call list for the first CSR or the returning CSR after 'called' flag update
       @calllists = []
-      # @route_calllists = []
 
       @altcsr = []
       @usualcsr = []
@@ -232,12 +230,59 @@ class CalllistsController < ApplicationController
             # include call list records that are a direct match for csr and also if there is an altcsr override active for another csr
             @calllists.push(c)
           end
-          # shipto = Shipto.where("shipto_code = ?", c.shipto).first
-          # if shipto.route_code == session[:called_route]
-            # @route_calllists.push(c)
-          # end
         end
       end
+    end
+
+    # Build a list of current routes
+    def build_route_list
+      @route = []
+      route = []
+      temproute = []
+      routes = Shipto.all
+      calllist = Calllist.all
+      route_array = []
+      shipto_array = []
+      routes.each do |r|
+        route_array.push(r.route_code)
+        shipto_array.push(r.shipto_code)
+      end
+
+    # Set up the call list for the first route or the returning route
+      @route_calllists = []
+
+      if !session[:called_route] || session[:called_route == '']
+      # the route has not been set so default to the first route I know is valid (this is bad code)
+        session[:called_route] = 'AM'
+      end
+
+      calllist.each do |c|
+        if c.csr
+          i = shipto_array.index(c.shipto)
+          if i && route_array[i] && !temproute.include?(route_array[i])
+            # found a match on shipto so store the accompanying route
+            temproute.push(route_array[i])
+          end
+          if c.shipto && i && route_array[i] == session[:called_route]
+            # include call list records that are a direct match for route via shipto
+            @route_calllists.push(c)
+          end
+        end
+      end
+      route = temproute.sort
+      i = 1
+      @selected_route = 0
+      route.each do |c|
+        select_item = []
+        select_item.push(c)
+        select_item.push(i)
+        @route.push(select_item)
+        if c == session[:called_route]
+          @selected_route = i
+        end
+        i += 1
+      end
+      session[:calllist_routes] = @route
     end
 
     # After seven days reset the called flag to false.
@@ -260,6 +305,6 @@ class CalllistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def calllist_params
-      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called, :called_date, :id, :ordered, :notes, :called_csr, :called_day, :callback_day, :callback_date)
+      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called, :called_date, :id, :ordered, :notes, :called_csr, :called_day, :called_route, :callback_day, :callback_date)
     end
 end

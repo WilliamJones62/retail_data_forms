@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Route Call List</h2>
+
+<%= form_with url: calllists_routeselected_path, local: true, method: 'get' do |f| %>
+  <%= f.select(:called_route, options_for_select(@route, @selected_route)) %>
+  <%= f.submit "Change" %>
+<% end %>
+
+<br>
+
+<div id="listtable">
+  <div id="listdiv">
+    <table id="listtab" class="stripe" class="mytable" class="display" cellspacing="0" >
+      <thead>
+        <tr>
+          <th> Customer </th>
+          <th> Ship to </th>
+          <th> Dept </th>
+          <th> Phone </th>
+          <th> Manager </th>
+          <th> Notes </th>
+          <th> CSR </th>
+          <th> Called? </th>
+          <th> Ordered? </th>
+          <th> Edit </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @route_calllists %>
+          <% @route_calllists.each do |calllist| %>
+            <tr>
+              <td><%= calllist.custcode %></td>
+              <td><%= calllist.shipto %></td>
+              <td><%= calllist.dept %></td>
+              <td><%= calllist.phone %></td>
+              <td><%= calllist.manager %></td>
+              <td> <%= calllist.notes %> </td>
+              <td> <%= calllist.csr %> </td>
+              <td> <%= human_boolean(calllist.called) %> </td>
+              <td> <%= human_boolean(calllist.ordered) %></td>
+              <td> <%= link_to 'Edit', edit_calllist_path(calllist) %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
