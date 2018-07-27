@@ -7,6 +7,8 @@ class CalllistsController < ApplicationController
   # GET /calllists
   def index
     @calllists = Calllist.all
+    session[:list] = false
+    session[:route_list] = false
   end
 
   # GET /calllists/1
@@ -39,38 +41,28 @@ class CalllistsController < ApplicationController
 
   # PATCH/PUT /calllists/1
   def update
-    session[:called_update] = false
-    session[:called_day] = ''
-    session[:called_csr] = ''
-    # session[:called_route] = ''
-    if @calllist.called != calllist_params[:called] || @calllist.ordered != calllist_params[:ordered] || @calllist.notes != calllist_params[:notes]
-      # just updated the called flag
-      session[:called_csr] = calllist_params[:csr]
-      session[:called_day] = calllist_params[:calllists_day]
-      session[:called_update] = true
-    end
-
     respond_to do |format|
-      if session[:called_update]
-        cp = calllist_params
+      cp = calllist_params
+      if calllist_params[:called] && @calllist.called != calllist_params[:called]
         cp[:called_date] = Date.today
-        if @calllist.notes != calllist_params[:notes] && calllist_params[:notes] != '' && calllist_params[:notes] != ' '
-          # if notes have changed to something other than nothing add today's date
-          notes = cp[:notes]
-          formatted = Date.today.strftime("%e %b %Y")
-          cp[:notes] = notes + ' (' + formatted + ')'
-        end
-        if @calllist.update(cp)
-          format.html { redirect_to action: "list"}
+      end
+      if @calllist.notes != calllist_params[:notes] && calllist_params[:notes] != '' && calllist_params[:notes] != ' '
+        # if notes have changed to something other than nothing add today's date
+        notes = cp[:notes]
+        formatted = Date.today.strftime("%e %b %Y")
+        cp[:notes] = notes + ' (' + formatted + ')'
+      end
+      # if session[:list] || session[:route_list]
+      if @calllist.update(cp)
+        if session[:list]
+          format.html { redirect_to action: "list", notice: 'Calllist was successfully updated.'}
+        elsif session[:route_list]
+          format.html { redirect_to action: "routelist", notice: 'Calllist was successfully updated.'}
         else
-          format.html { render :edit }
+          format.html { redirect_to @calllist, notice: 'Calllist was successfully updated.' }
         end
       else
-        if @calllist.update(calllist_params)
-          format.html { redirect_to @calllist, notice: 'Calllist was successfully updated.' }
-        else
-          format.html { render :edit }
-        end
+        format.html { render :edit }
       end
     end
   end
@@ -99,6 +91,8 @@ class CalllistsController < ApplicationController
       i += 1
     end
     session[:calllist_days] = @day
+    session[:list] = true
+    session[:route_list] = false
   end
 
   def selected
@@ -126,6 +120,8 @@ class CalllistsController < ApplicationController
   end
 
   def routelist
+    session[:list] = false
+    session[:route_list] = true
   end
 
   def routeselected

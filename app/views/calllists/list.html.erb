@@ -3,7 +3,9 @@
 <h2>Today's Call List</h2>
 
 <%= form_with url: calllists_selected_path, local: true, method: 'get' do |f| %>
+  <%= f.label(:called_csr, 'CSR:') %>
   <%= f.select(:called_csr, options_for_select(@csr, @selected_csr)) %>
+  <%= f.label(:called_day, 'Day:') %>
   <%= f.select(:called_day, options_for_select(@day, @selected_day)) %>
   <%= f.submit "Change" %>
 <% end %>

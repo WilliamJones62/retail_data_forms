@@ -3,6 +3,7 @@
 <h2>Route Call List</h2>
 
 <%= form_with url: calllists_routeselected_path, local: true, method: 'get' do |f| %>
+  <%= f.label(:called_route, 'Route:') %>
   <%= f.select(:called_route, options_for_select(@route, @selected_route)) %>
   <%= f.submit "Change" %>
 <% end %>
