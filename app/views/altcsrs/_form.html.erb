@@ -25,11 +25,11 @@
     </thead>
     <tbody>
       <tr>
-        <td> <%= form.select :usualcsr, @csr, {}, {:value => params[:usualcsr], :id => "altcsr_usualcsr", :onChange=> ('altcsrLists()')} %> </td>
+        <td> <%= form.select :usualcsr, @csr_single, {}, {:value => params[:usualcsr], :id => "altcsr_usualcsr", :onChange=> ('altcsrLists()')} %> </td>
         <td> <%= form.select :altcsrs_day, @day, {}, {:value => params[:altcsrs_day], :id => "altcsr_altcsrs_day", :onChange=> ('altcsrLists()')} %> </td>
         <td> <%= form.select :custcode, @customer, {}, {:value => params[:custcode], :id => "altcsr_custcode", :onChange=> ('altcsrShiptos()')} %> </td>
         <td> <%= form.select :shipto, @shipto, {}, {:value => params[:shipto], :id => "altcsr_shipto"} %> </td>
-        <td> <%= form.select :altcsr, @csr, {}, {:value => params[:altcsr]} %> </td>
+        <td> <%= form.select :altcsr, @csr_single, {}, {:value => params[:altcsr]} %> </td>
         <td> <%= form.date_select :altcsrs_start, id: :altcsr_altcsrs_start %> </td>
         <td> <%= form.date_select :altcsrs_end, id: :altcsr_altcsrs_end %> </td>
       </tr>

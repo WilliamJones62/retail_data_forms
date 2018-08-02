@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :onspecials
   resources :dontcalls
+  get 'altcsrs/list'
+  get 'altcsrs/selected'
+  get 'altcsrs/multi'
   resources :altcsrs
   get 'home/show'
 
