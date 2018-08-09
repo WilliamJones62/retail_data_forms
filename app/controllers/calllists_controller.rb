@@ -125,6 +125,16 @@ class CalllistsController < ApplicationController
   end
 
   def routeselected
+    csrs = []
+    csrs = session[:calllist_csrs]
+    csrs.each do |c|
+      select_item = []
+      select_item = c
+      if params[:called_csr] == select_item[1].to_s
+        session[:called_csr] = select_item[0]
+        break
+      end
+    end
     routes = []
     routes = session[:calllist_routes]
     routes.each do |c|
@@ -232,6 +242,36 @@ class CalllistsController < ApplicationController
 
     # Build a list of current routes
     def build_route_list
+      @csr = []
+      csr = []
+      tempcsr = []
+      calllist = Calllist.all
+      calllist.each do |c|
+        if c.csr && !tempcsr.include?(c.csr)
+          tempcsr.push(c.csr)
+        end
+      end
+
+      csr = tempcsr.sort
+      if !session[:called_csr] || session[:called_csr == '']
+        # not returning from update of called flag
+        session[:called_csr] = csr[0]
+      end
+
+      i = 1
+      @selected_csr = 0
+      csr.each do |c|
+        select_item = []
+        select_item.push(c)
+        select_item.push(i)
+        @csr.push(select_item)
+        if c == session[:called_csr]
+          @selected_csr = i
+        end
+        i += 1
+      end
+      session[:calllist_csrs] = @csr
+
       @route = []
       route = []
       temproute = []
@@ -259,7 +299,7 @@ class CalllistsController < ApplicationController
             # found a match on shipto so store the accompanying route
             temproute.push(route_array[i])
           end
-          if c.shipto && i && route_array[i] == session[:called_route]
+          if c.shipto && i && route_array[i] == session[:called_route] && c.csr == session[:called_csr]
             # include call list records that are a direct match for route via shipto
             @route_calllists.push(c)
           end

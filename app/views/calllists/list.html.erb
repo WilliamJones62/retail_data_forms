@@ -17,6 +17,7 @@
     <table id="listtab" class="stripe" class="mytable" class="display" cellspacing="0" >
       <thead>
         <tr>
+          <th> Called? </th>
           <th> Customer </th>
           <th> Ship to </th>
           <th> Dept </th>
@@ -24,7 +25,6 @@
           <th> Manager </th>
           <th> Notes </th>
           <th> CSR </th>
-          <th> Called? </th>
           <th> Ordered? </th>
           <th> Edit </th>
         </tr>
@@ -32,6 +32,7 @@
       <tbody>
         <% @calllists.each do |calllist| %>
           <tr>
+            <td> <%= human_boolean(calllist.called) %> </td>
             <td><%= calllist.custcode %></td>
             <td><%= calllist.shipto %></td>
             <td><%= calllist.dept %></td>
@@ -39,7 +40,6 @@
             <td><%= calllist.manager %></td>
             <td> <%= calllist.notes %> </td>
             <td> <%= calllist.csr %> </td>
-            <td> <%= human_boolean(calllist.called) %> </td>
             <td> <%= human_boolean(calllist.ordered) %></td>
             <td> <%= link_to 'Edit', edit_calllist_path(calllist) %></td>
           </tr>

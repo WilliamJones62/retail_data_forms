@@ -22,7 +22,7 @@
   <% @calllists.each do |calllist| %>
     <%= calllist.custcode %>
     <%= calllist.shipto %>
-    <%= f.select(:altcsr_array[i], options_for_select(@csr)) %>
+    <%= f.select :abcdefghijlkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[i], options_for_select(@csr) %>
     <% i += 1 %>
     <br>
   <% end %>
