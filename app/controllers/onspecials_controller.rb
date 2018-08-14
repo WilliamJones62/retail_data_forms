@@ -104,7 +104,9 @@ class OnspecialsController < ApplicationController
       authorlist = Authorlist.all
       authorlist.each do |a|
         if (cust =='ALL' || a.custcode == cust) && !temppart.include?(a.partcode)
-          temppart.push(a.partcode)
+          if a.partcode != ' '
+            temppart.push(a.partcode)
+          end
         end
         if !tempcust.include?(a.custcode)
           tempcust.push(a.custcode)

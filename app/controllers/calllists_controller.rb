@@ -18,12 +18,14 @@ class CalllistsController < ApplicationController
   # GET /calllists/new
   def new
     @day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
+    @cb_day = [' ', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
     @calllist = Calllist.new
   end
 
   # GET /calllists/1/edit
   def edit
     @day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
+    @cb_day = [' ', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
   end
 
   # POST /calllists
@@ -51,6 +53,12 @@ class CalllistsController < ApplicationController
         notes = cp[:notes]
         formatted = Date.today.strftime("%e %b %Y")
         cp[:notes] = notes + ' (' + formatted + ')'
+      end
+      if @calllist.instructions != calllist_params[:instructions] && calllist_params[:instructions] != '' && calllist_params[:instructions] != ' '
+        # if instructions have changed to something other than nothing add today's date
+        instructions = cp[:instructions]
+        formatted = Date.today.strftime("%e %b %Y")
+        cp[:instructions] = instructions + ' (' + formatted + ')'
       end
       # if session[:list] || session[:route_list]
       if @calllist.update(cp)
@@ -341,6 +349,6 @@ class CalllistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def calllist_params
-      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called, :called_date, :id, :ordered, :notes, :called_csr, :called_day, :called_route, :callback_day, :callback_date)
+      params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called, :called_date, :id, :ordered, :notes, :called_csr, :called_day, :called_route, :callback_day, :callback_date, :instructions)
     end
 end

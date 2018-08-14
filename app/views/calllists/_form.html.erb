@@ -65,6 +65,7 @@
           <tr>
             <th> <%= form.label :phone, "Phone" %> </th>
             <th> <%= form.label :manager, "Manager" %> </th>
+            <th> <%= form.label :instructions, "Instructions" %> </th>
             <th> <%= form.label :notes, "Notes" %> </th>
             <!-- <th> <%= form.label :totalitems, "Total items" %> </th> -->
           </tr>
@@ -74,6 +75,7 @@
             <td> <%= form.text_field :phone, id: :calllist_phone %> </td>
             <td> <%= form.text_field :manager, id: :calllist_manager %> </td>
             <td> <%= form.text_field :notes, id: :calllist_notes %> </td>
+            <td> <%= form.text_field :instructions, id: :calllist_instructions %> </td>
             <!-- <td> <%= form.text_field :totalitems, id: :calllist_totalitems %> </td> -->
           </tr>
         </tbody>
@@ -88,7 +90,7 @@
         </thead>
         <tbody>
           <tr>
-            <td> <%= form.select :callback_day, @day, {}, {:value => params[:callback_day]} %> </td>
+            <td> <%= form.select :callback_day, @cb_day, {}, {:value => params[:callback_day]} %> </td>
           </tr>
         </tbody>
       </table>
