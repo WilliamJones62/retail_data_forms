@@ -2,6 +2,13 @@
 
 <h2>Authorized</h2>
 
+<%= form_with url: authorlists_selected_path, local: true, method: 'get' do |f| %>
+  <%= f.label(:author_custcode, 'Customer:') %>
+  <%= f.select(:author_custcode, options_for_select(@custcode, @selected_customer)) %>
+  <%= f.submit "Change" %>
+<% end %>
+
+<br>
 <table id="normal_dt"  class="stripe" class="mytable" class="display" cellspacing="0" >
   <thead>
     <tr>
