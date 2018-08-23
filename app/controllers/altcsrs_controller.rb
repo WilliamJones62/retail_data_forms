@@ -126,18 +126,17 @@ class AltcsrsController < ApplicationController
     calllist.each do |c|
       if c.csr
         if c.calllists_day == session[:param_day] && c.csr == session[:param_csr]
-          # include call list records that are a direct match for csr
+          # include call list records that are a direct match for csr and day
           @calllists.push(c)
         end
       end
     end
     i = 0
     @calllists.each do |c|
-      altcsr = Altcsr.find_or_create_by(usualcsr: session[:param_csr], custcode: c.custcode, shipto: c.shipto, altcsrs_day: c.calllists_day)
+      altcsr = Altcsr.find_or_create_by(usualcsr: session[:param_csr], custcode: c.custcode, shipto: c.shipto, dept: c.dept, altcsrs_day: c.calllists_day)
       altcsr.altcsrs_start = session[:param_start]
       altcsr.altcsrs_end = session[:param_end]
       csr_string = params[:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[i]]
-      logger.info 'csr_string = ' + csr_string
       csr_index = csr_string.to_i
       altcsr.altcsr = csr_single[csr_index - 1]
       i += 1
@@ -207,11 +206,14 @@ class AltcsrsController < ApplicationController
       @customer = []
       @allcust = []
       @allshipto = []
+      @alldept = []
       @allcsr = []
       @allday = []
       @shipto = []
+      @dept = []
       tempcust = []
       tempshipto = []
+      tempdept = []
       csr = ' '
       day = ' '
 
@@ -237,18 +239,23 @@ class AltcsrsController < ApplicationController
           if c.custcode && c.custcode == customer && c.shipto && !tempshipto.include?(c.shipto)
             tempshipto.push(c.shipto)
           end
+          if c.dept && !tempdept.include?(c.dept)
+            tempdept.push(c.dept)
+          end
         end
         @allcsr.push(c.csr)
         @allday.push(c.calllists_day)
         @allshipto.push(c.shipto)
+        @alldept.push(c.dept)
         @allcust.push(c.custcode)
       end
       @customer = tempcust.sort
       @shipto = tempshipto.sort
+      @dept = tempdept.sort
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def altcsr_params
-      params.require(:altcsr).permit(:usualcsr, :altcsrs_day, :custcode, :shipto, :altcsr, :altcsrs_start, :altcsrs_end, :param_csr, :param_day, :param_start, :param_end, abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890: [])
+      params.require(:altcsr).permit(:usualcsr, :altcsrs_day, :custcode, :shipto, :dept, :altcsr, :altcsrs_start, :altcsrs_end, :param_csr, :param_day, :param_start, :param_end, abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890: [])
     end
 end

@@ -45,6 +45,9 @@ class CalllistsController < ApplicationController
   def update
     respond_to do |format|
       cp = calllist_params
+      if calllist_params[:callback_day] && @calllist.callback_day != calllist_params[:callback_day]
+        cp[:callback_date] = Date.today
+      end
       if calllist_params[:called] && @calllist.called != calllist_params[:called]
         cp[:called_date] = Date.today
       end
@@ -214,6 +217,7 @@ class CalllistsController < ApplicationController
       @altcsr = []
       @usualcsr = []
       @shipto = []
+      @dept = []
       @altcsrs_day = []
       @custcode = []
       now = Date.today
@@ -223,6 +227,7 @@ class CalllistsController < ApplicationController
           @altcsr.push(a.altcsr)
           @usualcsr.push(a.usualcsr)
           @shipto.push(a.shipto)
+          @dept.push(a.dept)
           @altcsrs_day.push(a.altcsrs_day)
           @custcode.push(a.custcode)
         end
@@ -234,7 +239,7 @@ class CalllistsController < ApplicationController
           altcsr_length = @altcsr.length
           i = 0
           while i < altcsr_length
-            if @usualcsr[i] == c.csr && session[:called_csr] == @altcsr[i] && c.custcode == @custcode[i] && c.shipto == @shipto[i] && c.calllists_day == @altcsrs_day[i]
+            if @usualcsr[i] == c.csr && session[:called_csr] == @altcsr[i] && c.custcode == @custcode[i] && c.shipto == @shipto[i] && c.dept == @dept[i] && c.calllists_day == @altcsrs_day[i]
               altcsr_found = true
               break
             end

@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180813205542) do
+ActiveRecord::Schema.define(version: 20180820201001) do
 
   create_table "altcsrs", force: :cascade do |t|
     t.string "usualcsr"
     t.string "altcsr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "altcrs_start"
-    t.date "altcrs_end"
+    t.date "altcsrs_start"
+    t.date "altcsrs_end"
     t.string "shipto"
     t.string "altcsrs_day"
     t.string "custcode"
+    t.string "dept"
   end
 
   create_table "authorlists", force: :cascade do |t|

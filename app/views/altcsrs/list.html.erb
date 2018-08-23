@@ -15,13 +15,14 @@
 <% end %>
 
 <br>
-<h3 id="althead"> Customer   Ship to   Alt CSR </h3>
+<h3 id="althead"> Customer   Ship to   Dept  Alt CSR </h3>
 
 <%= form_with url: altcsrs_multi_path, local: true, method: 'get' do |f| %>
   <% i = 0 %>
   <% @calllists.each do |calllist| %>
     <%= calllist.custcode %>
     <%= calllist.shipto %>
+    <%= calllist.dept %>
     <%= f.select :abcdefghijlkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[i], options_for_select(@csr) %>
     <% i += 1 %>
     <br>
