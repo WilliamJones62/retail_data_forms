@@ -15,21 +15,36 @@
 <% end %>
 
 <br>
-<h3 id="althead"> Customer   Ship to   Dept  Alt CSR </h3>
 
 <%= form_with url: altcsrs_multi_path, local: true, method: 'get' do |f| %>
-  <% i = 0 %>
-  <% @calllists.each do |calllist| %>
-    <%= calllist.custcode %>
-    <%= calllist.shipto %>
-    <%= calllist.dept %>
-    <%= f.select :abcdefghijlkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[i], options_for_select(@csr) %>
-    <% i += 1 %>
-    <br>
-  <% end %>
-  <br>
-  <%= f.submit "Submit" %>
+
+<div id="listtable">
+  <div id="listdiv">
+    <table id="listtab" class="stripe" class="mytable" class="display" cellspacing="0" >
+      <thead>
+        <tr>
+          <th> Customer </th>
+          <th> Ship to </th>
+          <th> Dept </th>
+          <th> Alt CSR </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @calllists.each do |calllist| %>
+          <tr>
+            <td><%= calllist.custcode %></td>
+            <td><%= calllist.shipto %></td>
+            <td><%= calllist.dept %></td>
+            <td><%= f.select "altcsr_list[]", options_for_select(@csr) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br>
+<%= f.submit "Submit" %>
 <% end %>
 <br>
 
-<%= link_to 'List', altcsrs_path %>
+<%= link_to 'Alt CSR List', altcsrs_path %>

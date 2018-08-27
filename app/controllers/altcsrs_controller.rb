@@ -132,13 +132,12 @@ class AltcsrsController < ApplicationController
       end
     end
     i = 0
+    csr_list = params[:altcsr_list]
     @calllists.each do |c|
       altcsr = Altcsr.find_or_create_by(usualcsr: session[:param_csr], custcode: c.custcode, shipto: c.shipto, dept: c.dept, altcsrs_day: c.calllists_day)
       altcsr.altcsrs_start = session[:param_start]
       altcsr.altcsrs_end = session[:param_end]
-      csr_string = params[:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[i]]
-      csr_index = csr_string.to_i
-      altcsr.altcsr = csr_single[csr_index - 1]
+      altcsr.altcsr = csr_single[csr_list[i].to_i - 1]
       i += 1
       altcsr.save
     end
@@ -256,6 +255,6 @@ class AltcsrsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def altcsr_params
-      params.require(:altcsr).permit(:usualcsr, :altcsrs_day, :custcode, :shipto, :dept, :altcsr, :altcsrs_start, :altcsrs_end, :param_csr, :param_day, :param_start, :param_end, abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890: [])
+      params.require(:altcsr).permit(:usualcsr, :altcsrs_day, :custcode, :shipto, :dept, :altcsr, :altcsrs_start, :altcsrs_end, :param_csr, :param_day, :param_start, :param_end, :altcsr_list[])
     end
 end
