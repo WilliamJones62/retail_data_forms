@@ -3,12 +3,10 @@ class AuthorlistsController < ApplicationController
   before_action :build_customer_list, only: [:index]
 
   # GET /authorlists
-  # GET /authorlists.json
   def index
   end
 
   # GET /authorlists/1
-  # GET /authorlists/1.json
   def show
   end
 
@@ -22,7 +20,6 @@ class AuthorlistsController < ApplicationController
   end
 
   # POST /authorlists
-  # POST /authorlists.json
   def create
     @authorlist = Authorlist.new(authorlist_params)
 
@@ -36,8 +33,11 @@ class AuthorlistsController < ApplicationController
   end
 
   # PATCH/PUT /authorlists/1
-  # PATCH/PUT /authorlists/1.json
   def update
+    if @authorlist.priority != authorlist_params[:priority].to_i
+      # change in priority means other records may need to shuffle priority
+      change_priorities(@authorlist.priority, authorlist_params[:priority].to_i)
+    end
     respond_to do |format|
       if @authorlist.update(authorlist_params)
         format.html { redirect_to @authorlist, notice: 'Authorlist was successfully updated.' }
@@ -48,7 +48,6 @@ class AuthorlistsController < ApplicationController
   end
 
   # DELETE /authorlists/1
-  # DELETE /authorlists/1.json
   def destroy
     @authorlist.destroy
     respond_to do |format|
@@ -74,6 +73,26 @@ class AuthorlistsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_authorlist
       @authorlist = Authorlist.find(params[:id])
+    end
+
+    # Build a list of current customers
+    def change_priorities(from, to)
+      authorlist = Authorlist.all
+      authorlist.each do |a|
+        if from < to
+          # authorization had been demoted
+          if a.custcode == session[:author_custcode] && a.priority > from && a.priority <= to
+            a.priority -= 1
+            a.save
+          end
+        else
+          # authorization had been promoted
+          if a.custcode == session[:author_custcode] && a.priority < from && a.priority >= to
+            a.priority += 1
+            a.save
+          end
+        end
+      end
     end
 
     # Build a list of current customers

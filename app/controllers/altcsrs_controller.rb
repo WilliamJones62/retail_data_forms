@@ -123,14 +123,16 @@ class AltcsrsController < ApplicationController
     csr_single = tempcsr.sort
 
     @calllists = []
+    tempcalllists = []
     calllist.each do |c|
       if c.csr
         if c.calllists_day == session[:param_day] && c.csr == session[:param_csr]
           # include call list records that are a direct match for csr and day
-          @calllists.push(c)
+          tempcalllists.push(c)
         end
       end
     end
+    @calllists = tempcalllists.sort_by{ |t| [t.custcode, t.shipto, t.dept]}
     i = 0
     csr_list = params[:altcsr_list]
     @calllists.each do |c|

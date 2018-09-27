@@ -54,6 +54,10 @@
       autoWidth: true,
       responsive: true,
       retrieve: true,
+      columnDefs: [ {
+          targets: [ 0 ],
+          orderData: [ 0, 1, 2 ]
+      } ],
       dom: 'Bfrtip',
       buttons: [
         {
