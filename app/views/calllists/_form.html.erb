@@ -44,6 +44,7 @@
         <thead>
           <tr>
             <th> <%= form.label :custcode, "Customer code" %> </th>
+            <th> <%= form.label :custname, "Customer name" %> </th>
             <th> <%= form.label :shipto, "Ship to" %> </th>
             <th> <%= form.label :dept, "Dept." %> </th>
             <!-- <th> <%= form.label :item, "Item" %> </th> -->
@@ -52,6 +53,7 @@
         <tbody>
           <tr>
             <td> <%= form.text_field :custcode, id: :calllist_custcode %> </td>
+            <td> <%= form.text_field :custname, id: :calllist_custname %> </td>
             <td> <%= form.text_field :shipto, id: :calllist_shipto %> </td>
             <td> <%= form.text_field :dept, id: :calllist_dept %> </td>
             <!-- <td> <%= form.text_field :item, id: :calllist_item %> </td> -->
@@ -74,8 +76,8 @@
           <tr>
             <td> <%= form.text_field :phone, id: :calllist_phone %> </td>
             <td> <%= form.text_field :manager, id: :calllist_manager %> </td>
-            <td> <%= form.text_field :notes, id: :calllist_notes %> </td>
             <td> <%= form.text_field :instructions, id: :calllist_instructions %> </td>
+            <td> <%= form.text_field :notes, id: :calllist_notes %> </td>
             <!-- <td> <%= form.text_field :totalitems, id: :calllist_totalitems %> </td> -->
           </tr>
         </tbody>

@@ -21,7 +21,10 @@ class AuthorlistsController < ApplicationController
 
   # POST /authorlists
   def create
-    @authorlist = Authorlist.new(authorlist_params)
+    authorlist = Authorlist.where(custcode: authorlist_params[:custcode])
+    ap = authorlist_params
+    ap[:priority] = authorlist.last.priority + 1
+    @authorlist = Authorlist.new(ap)
 
     respond_to do |format|
       if @authorlist.save

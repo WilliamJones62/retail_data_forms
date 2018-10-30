@@ -2,6 +2,7 @@ class CalllistsController < ApplicationController
   before_action :set_calllist, only: [:show, :edit, :update, :destroy]
   before_action :build_csr_list, only: [:list]
   before_action :build_route_list, only: [:routelist]
+  before_action :build_customer_list, only: [:customerlist]
   before_action :reset_called_flag, only: [:index, :list]
 
   # GET /calllists
@@ -9,6 +10,7 @@ class CalllistsController < ApplicationController
     @calllists = Calllist.all
     session[:list] = false
     session[:route_list] = false
+    session[:customer_list] = false
   end
 
   # GET /calllists/1
@@ -69,6 +71,8 @@ class CalllistsController < ApplicationController
           format.html { redirect_to action: "list", notice: 'Calllist was successfully updated.'}
         elsif session[:route_list]
           format.html { redirect_to action: "routelist", notice: 'Calllist was successfully updated.'}
+        elsif session[:customer_list]
+          format.html { redirect_to action: "customerlist", notice: 'Calllist was successfully updated.'}
         else
           format.html { redirect_to @calllist, notice: 'Calllist was successfully updated.' }
         end
@@ -104,6 +108,7 @@ class CalllistsController < ApplicationController
     session[:calllist_days] = @day
     session[:list] = true
     session[:route_list] = false
+    session[:customer_list] = false
   end
 
   def selected
@@ -133,6 +138,7 @@ class CalllistsController < ApplicationController
   def routelist
     session[:list] = false
     session[:route_list] = true
+    session[:customer_list] = false
   end
 
   def routeselected
@@ -157,6 +163,26 @@ class CalllistsController < ApplicationController
       end
     end
     redirect_to action: "routelist"
+  end
+
+  def customerlist
+    session[:list] = false
+    session[:route_list] = false
+    session[:customer_list] = true
+  end
+
+  def customerselected
+    customers = []
+    customers = $calllist_customers
+    customers.each do |c|
+      select_item = []
+      select_item = c
+      if params[:called_customer] == select_item[1].to_s
+        session[:called_customer] = select_item[0]
+        break
+      end
+    end
+    redirect_to action: "customerlist"
   end
 
   def not_called
@@ -334,18 +360,74 @@ class CalllistsController < ApplicationController
       session[:calllist_routes] = @route
     end
 
+    # Build a list of current routes
+    def build_customer_list
+      @customer = []
+      customer = []
+      tempcustomer = []
+      calllist = Calllist.all
+      calllist.each do |c|
+        if c.custcode && !tempcustomer.include?(c.custcode)
+          tempcustomer.push(c.custcode)
+        end
+      end
+
+      customer = tempcustomer.sort
+      if !session[:called_customer] || session[:called_customer == '']
+        # session customer not set
+        session[:called_customer] = customer[0]
+      end
+
+      i = 1
+      @selected_customer = 0
+      customer.each do |c|
+        select_item = []
+        select_item.push(c)
+        select_item.push(i)
+        @customer.push(select_item)
+        if c == session[:called_customer]
+          @selected_customer = i
+        end
+        i += 1
+      end
+      $calllist_customers = @customer
+
+      @customer_calllists = []
+      calllist.each do |c|
+        if c.custcode
+          if c.custcode == session[:called_customer]
+            # include call list records that are a direct match for customer
+            @customer_calllists.push(c)
+          end
+        end
+      end
+    end
+
     # After seven days reset the called flag to false.
     def reset_called_flag
       now = Date.today
-      a_week_ago = now - 6
+      day_num = now.cwday
+      case day_num
+      when 0
+        day_text = 'SUNDAY'
+      when 1
+        day_text = 'MONDAY'
+      when 2
+        day_text = 'TUESDAY'
+      when 3
+        day_text = 'WEDNESDAY'
+      when 4
+        day_text = 'THURSDAY'
+      when 5
+        day_text = 'FRIDAY'
+      else
+        day_text = 'SATURDAY'
+      end
       calllists = Calllist.all
       calllists.each do |c|
-        if c.called && c.called_date < a_week_ago
+        if c.called && c.calllists_day == day_text && c.called_date < now
           c.called = false
           c.ordered = false
-          c.save
-        end
-        if c.callback_day && c.callback_day != '' && c.callback_date && c.callback_date < a_week_ago
           c.callback_day = ''
           c.save
         end

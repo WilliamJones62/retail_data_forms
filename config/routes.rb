@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'calllists/selected'
   get 'calllists/routelist'
   get 'calllists/routeselected'
+  get 'calllists/customerlist'
+  get 'calllists/customerselected'
   get 'calllists/not_called'
   get 'calllists/not_ordered'
   resources :calllists do

@@ -16,8 +16,6 @@
       <th>Custcode</th>
       <th>Dept</th>
       <th>Partcode</th>
-      <th>Turns</th>
-      <th>Seq</th>
       <th>Show</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -31,8 +29,6 @@
         <td><%= authorlist.custcode %></td>
         <td><%= authorlist.dept %></td>
         <td><%= authorlist.partcode %></td>
-        <td><%= authorlist.turns %></td>
-        <td><%= authorlist.seq %></td>
         <td><%= link_to 'Show', authorlist %></td>
         <td><%= link_to 'Edit', edit_authorlist_path(authorlist) %></td>
         <td><%= link_to 'Delete', authorlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
