@@ -3,6 +3,7 @@ class CalllistsController < ApplicationController
   before_action :build_csr_list, only: [:list]
   before_action :build_route_list, only: [:routelist]
   before_action :build_customer_list, only: [:customerlist]
+  before_action :redirect_csrs, only: [:index]
   before_action :reset_called_flag, only: [:index, :list]
 
   # GET /calllists
@@ -425,7 +426,7 @@ class CalllistsController < ApplicationController
       end
       calllists = Calllist.all
       calllists.each do |c|
-        if c.called && c.calllists_day == day_text && c.called_date < now
+        if c.called && ((c.calllists_day == day_text && (c.called_date.blank? || c.called_date < now)) || c.called_date.blank? || c.called_date < now-6.days)
           c.called = false
           c.ordered = false
           c.callback_day = ''
@@ -434,6 +435,12 @@ class CalllistsController < ApplicationController
       end
     end
 
+    # Redirect CSRs to the list page
+    def redirect_csrs
+      if current_user6.email != "admin"
+        redirect_to action: "list"
+      end
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def calllist_params
       params.require(:calllist).permit(:calllists_day, :custname, :custcode, :shipto, :rep, :csr, :dept, :item, :phone, :manager, :totalitems, :called, :called_date, :id, :ordered, :notes, :called_csr, :called_day, :called_route, :callback_day, :callback_date, :instructions)

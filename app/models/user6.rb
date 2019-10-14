@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class User6 < ApplicationRecord
   self.table_name = "retail_data_forms_users"
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

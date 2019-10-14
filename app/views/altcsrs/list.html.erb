@@ -26,6 +26,7 @@
           <th> Customer </th>
           <th> Ship to </th>
           <th> Dept </th>
+          <th> Rep </th>
           <th> Alt CSR </th>
         </tr>
       </thead>
@@ -35,6 +36,7 @@
             <td><%= calllist.custcode %></td>
             <td><%= calllist.shipto %></td>
             <td><%= calllist.dept %></td>
+            <td><%= calllist.rep%></td>
             <td><%= f.select "altcsr_list[]", options_for_select(@csr) %></td>
           </tr>
         <% end %>

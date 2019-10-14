@@ -1,10 +1,10 @@
 <h2 class="primary-logo">
 </h2>
 <nav class="">
-  <% if current_user %>
+  <% if current_user6 %>
     <ul>
         <span id="navbar">
-          <% if current_user.email == "admin" %>
+          <% if current_user6.email == "admin" %>
             <span><%= link_to 'Authorized', '/authorlists' %></span>
             <span><%= link_to "Don't Sell", '/dontcalls' %></span>
             <span><%= link_to 'Specials', '/onspecials' %></span>

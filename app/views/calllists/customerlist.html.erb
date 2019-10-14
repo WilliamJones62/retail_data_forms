@@ -19,8 +19,10 @@
           <th> Ship to </th>
           <th> Dept </th>
           <th> Phone </th>
+          <th> Call day </th>
           <th> Manager </th>
           <th> Notes </th>
+          <th> Instructions </th>
           <th> CSR </th>
           <th> Called? </th>
           <th> Ordered? </th>
@@ -35,8 +37,10 @@
               <td><%= calllist.shipto %></td>
               <td><%= calllist.dept %></td>
               <td><%= calllist.phone %></td>
+              <td><%= calllist.calllists_day %></td>
               <td><%= calllist.manager %></td>
               <td> <%= calllist.notes %> </td>
+              <td> <%= calllist.instructions %> </td>
               <td> <%= calllist.csr %> </td>
               <td> <%= human_boolean(calllist.called) %> </td>
               <td> <%= human_boolean(calllist.ordered) %></td>
