@@ -188,7 +188,8 @@ class AltcsrsController < ApplicationController
 
       calllist.each do |c|
         if c.csr
-          if c.calllists_day == session[:param_day] && c.csr == session[:param_csr]
+          if (c.calllists_day == session[:param_day] || c.callback_day == session[:param_day]) && c.csr == session[:param_csr]
+          # if c.calllists_day == session[:param_day] && c.csr == session[:param_csr]
             # include call list records that are a direct match for csr
             @calllists.push(c)
           end
