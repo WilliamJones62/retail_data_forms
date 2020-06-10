@@ -59,7 +59,7 @@ class AltcsrsController < ApplicationController
   end
 
   def list
-    day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
+    day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY', 'HOLIDAY']
     @day = []
     i = 1
     @selected_day = 0
@@ -199,7 +199,7 @@ class AltcsrsController < ApplicationController
 
     # Build a list of days
     def build_day_list
-      @day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'HOLIDAY']
+      @day = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY', 'HOLIDAY']
       session[:altcsrs_days] = @day
     end
 
